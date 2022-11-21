@@ -47,6 +47,7 @@ public class Deck {
         //testing for implementation later(crit and miss), maybe remove when drawn?
         if (value == -3) {
             System.out.println("Player drew a miss...");
+            shuffle();
         }
         if (value == 3) {
             System.out.println("Player drew a crit! Shuffling deck.");
