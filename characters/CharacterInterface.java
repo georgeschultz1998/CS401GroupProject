@@ -1,3 +1,5 @@
+package characters;
+
 public interface CharacterInterface {
     public String getName();
     public void setName(String nName);
