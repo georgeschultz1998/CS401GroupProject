@@ -1,5 +1,5 @@
 package characters;
-import Deck.Deck;
+import Deck.*;
 
 import characters.CharacterInterface;
 
