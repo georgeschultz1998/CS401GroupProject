@@ -1,4 +1,5 @@
 package characters;
+import Deck.Deck;
 
 import characters.CharacterInterface;
 
@@ -8,7 +9,7 @@ abstract public class PlayableCharacter implements CharacterInterface {
     protected int hp;
     protected int xPos;
     protected int yPos;
-
+    protected Deck deck;
     protected int gold;
 
     public PlayableCharacter(String _name, int _hp, int _xPos, int _yPos, int _gold) {
@@ -17,6 +18,7 @@ abstract public class PlayableCharacter implements CharacterInterface {
         xPos = _xPos;
         yPos = _yPos;
         gold = _gold;
+        deck = new Deck();
     }
 
     public String getName() {

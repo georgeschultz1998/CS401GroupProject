@@ -10,5 +10,7 @@ public class CharacterGenerator {
         System.out.println(tinkerer.toString());
         System.out.println(crag.toString());
         System.out.println(brute.toString());
+
+        System.out.println(brute.deck.getDeck());
     }
 }
