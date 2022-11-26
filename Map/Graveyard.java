@@ -15,7 +15,7 @@ class Main {
         };
 
         String[] row2Array = {
-          "|Y1" + " ", hex + "  ", hex + "  ", hex + "  ", hex + " |"
+          "|Y1" + " ", hex + "  ", hex + "  ", hex + "  ", hex + "|"
         };
 
         String[] row3Array = {
