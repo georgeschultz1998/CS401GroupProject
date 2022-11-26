@@ -6,18 +6,7 @@ public class Cragheart extends PlayableCharacter {
     }
 
 
-    @Override
-    public void setName(String nName) {
-        name = nName;
-    }
-
-    @Override
-    public int getHP() {
-        return hp;
-    }
-
-    @Override
-    public void setHP(int nHP) {
-        hp = nHP;
+    public Cragheart(String _name) {
+        super(_name);
     }
 }

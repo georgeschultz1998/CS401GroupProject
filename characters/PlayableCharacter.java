@@ -21,14 +21,26 @@ abstract public class PlayableCharacter implements CharacterInterface {
         deck = new Deck();
     }
 
+    public PlayableCharacter(String _name) {
+        name = _name;
+        hp = -1;
+        xPos = -1;
+        yPos = -1;
+        gold = -1;
+        deck = new Deck();
+    }
+
     public String getName() {
         return name;
     }
-    public int getHp() {
+    public void setName(String nName) {
+        name = nName;
+    }
+    public int getHP() {
         return hp;
     }
 
-    public void setHp(int nHP) {
+    public void setHP(int nHP) {
         hp = nHP;
     }
 

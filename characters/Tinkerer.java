@@ -7,18 +7,7 @@ public class Tinkerer extends PlayableCharacter {
         super(_name, _hp, _xPos, _yPos, _gold);
     }
 
-    @Override
-    public void setName(String nName) {
-        name = nName;
-    }
-
-    @Override
-    public int getHP() {
-        return hp;
-    }
-
-    @Override
-    public void setHP(int nHP) {
-        hp = nHP;
+    public Tinkerer(String _name) {
+        super(_name);
     }
 }
