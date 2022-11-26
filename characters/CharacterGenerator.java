@@ -29,7 +29,7 @@ public class CharacterGenerator {
 
         for (int i = 0; i < partySize; i++) {
             String charType = "";
-            String name = ""
+            String name = "";
             System.out.println("Please choose the class of the current character (1-3)");
             System.out.println("Current characters are (1)Brute, (2)Cragheart, (3)Tinker:");
             charType = input.next();
