@@ -7,26 +7,21 @@ import com.sun.javafx.scene.traversal.Direction;
  * @author David
  */
 public class Board {
-    private final Hexagon BLANK_SQ = new Hexagon(Symbol.BLANK);
+    private final BoardPiece BLANK_HEX = new BoardPiece(Symbol.HEXAGON);
 
     // The complete 11 x 11 board
-    private final Hexagon[][] board = {
-        {BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ, new Hexagon(Symbol.CROSS), BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ},
-        {BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ, new Hexagon(Symbol.CIRCLE), new Hexagon(Symbol.DIAMOND), new Hexagon(Symbol.HEXAGON), BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ},
-        {BLANK_SQ, BLANK_SQ, BLANK_SQ, new Hexagon(Symbol.CROSS), new Hexagon(Symbol.DOT), new Hexagon(Symbol.DIAMOND), new Hexagon(Symbol.DIAMOND), new Hexagon(Symbol.DOT), BLANK_SQ, BLANK_SQ, BLANK_SQ},
-        {BLANK_SQ, BLANK_SQ, new Hexagon(Symbol.CLOVER), new Hexagon(Symbol.DOT), new Hexagon(Symbol.DOT), new Hexagon(Symbol.CROSS), new Hexagon(Symbol.DIAMOND), new Hexagon(Symbol.CLOVER), new Hexagon(Symbol.CIRCLE), BLANK_SQ, BLANK_SQ},
-        {BLANK_SQ, new Hexagon(Symbol.DOT), new Hexagon(Symbol.HEXAGON), new Hexagon(Symbol.DOT), new Hexagon(Symbol.PLUS), BLANK_SQ, new Hexagon(Symbol.PLUS), new Hexagon(Symbol.CLOVER), new Hexagon(Symbol.CLOVER), new Hexagon(Symbol.CLOVER), BLANK_SQ},
-        {new Hexagon(Symbol.CIRCLE), new Hexagon(Symbol.HEXAGON), new Hexagon(Symbol.HEXAGON), new Hexagon(Symbol.DIAMOND), BLANK_SQ, BLANK_SQ, BLANK_SQ, new Hexagon(Symbol.CIRCLE), new Hexagon(Symbol.HEXAGON), new Hexagon(Symbol.HEXAGON), new Hexagon(Symbol.DIAMOND)},
-        {BLANK_SQ, new Hexagon(Symbol.CLOVER), new Hexagon(Symbol.HEXAGON), new Hexagon(Symbol.CIRCLE), new Hexagon(Symbol.DOT), BLANK_SQ, new Hexagon(Symbol.HEXAGON), new Hexagon(Symbol.CROSS), new Hexagon(Symbol.CROSS), new Hexagon(Symbol.PLUS), BLANK_SQ},
-        {BLANK_SQ, BLANK_SQ, new Hexagon(Symbol.CROSS), new Hexagon(Symbol.CIRCLE), new Hexagon(Symbol.CIRCLE), new Hexagon(Symbol.HEXAGON), new Hexagon(Symbol.PLUS), new Hexagon(Symbol.PLUS), new Hexagon(Symbol.CLOVER), BLANK_SQ, BLANK_SQ},
-        {BLANK_SQ, BLANK_SQ, BLANK_SQ, new Hexagon(Symbol.PLUS), new Hexagon(Symbol.CIRCLE), new Hexagon(Symbol.PLUS), new Hexagon(Symbol.PLUS), new Hexagon(Symbol.DIAMOND), BLANK_SQ, BLANK_SQ, BLANK_SQ},
-        {BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ, new Hexagon(Symbol.DIAMOND), new Hexagon(Symbol.CLOVER), new Hexagon(Symbol.DOT), BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ},
-        {BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ, new Hexagon(Symbol.DIAMOND), BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ, BLANK_SQ}
-    };
+    private final BoardPiece[][] board = {
+        {BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX},
+            {BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX},
+            {BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX},
+            {BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX},
+            {BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX},
+        {new BoardPiece(Symbol.USER), BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX}
+        };
             
     // To make it a bit easier to figure out where a position is
     // The ending 0 is for 10
-    private static final String TOPGUIDE = "   01234567890\n   ___________\n";
+    private static final String TOPGUIDE = "----------------------\n    0  1   2  3  4  5 \n";
 
     
     /**
@@ -38,13 +33,17 @@ public class Board {
         StringBuilder result = new StringBuilder();
         int rowNum = 0;
 
+        result.append("______________________");
+        result.append("\n|         MAP         |\n");
+
         result.append(TOPGUIDE);
-        for (Hexagon[] row : board) {
+        for (BoardPiece[] row : board) {
             // Use last digit here to be consistent with digits across
             // the top and to make it easier to line things up
+            result.append("|");
             result.append(lastDigit(rowNum++));
-            result.append("| ");
-            for (Hexagon sq : row) {
+            result.append(" ");
+            for (BoardPiece sq : row) {
                 result.append(sq.toString());
             }
             result.append('\n');

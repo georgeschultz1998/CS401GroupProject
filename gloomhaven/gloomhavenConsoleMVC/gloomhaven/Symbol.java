@@ -5,7 +5,7 @@ package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
  * @author David
  */
 public enum Symbol {
-    PLUS, CROSS, DOT, DIAMOND, SQUARE, CLOVER, CIRCLE, BLANK, HEXAGON;
+    BLANK, HEXAGON, USER, UNDEAD, BANDIT;
 
     // The following array is mapped to the above list of values
     // Any change to either should cause a check if the other is still
@@ -13,7 +13,7 @@ public enum Symbol {
     // Could use better unicode characters if those are supported
     // Basic NetBeans support is not great, though there is apparently
     // a plugin
-    static final String repr[] = {"+", "X", ".", "D", "[", "*", "O", " ", "⬣"};
+    static final String repr[] = { " ","|⬣ ", "|👤", "|👻", "|😡"};
 
     /**
      * Produce single character String representation

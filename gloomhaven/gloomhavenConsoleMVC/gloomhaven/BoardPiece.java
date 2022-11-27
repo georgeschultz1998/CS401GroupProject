@@ -4,14 +4,14 @@ package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
  * Hexagon on Heptalion board
  * @author David
  */
-public class Hexagon {
+public class BoardPiece {
     private Symbol value;
     
     /**
      * Initialize Hexagon
      * @param _value initial symbol of this Hexagon
      */
-    public Hexagon(Symbol _value) {
+    public BoardPiece(Symbol _value) {
         value = _value;
     }
     
