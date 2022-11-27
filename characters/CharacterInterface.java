@@ -10,6 +10,8 @@ public interface CharacterInterface {
     public void setXPos(int nX);
     public void setYPos(int nY);
 
+    public void moveCharacter(int deltaX, int deltaY);
+
     //public Deck getDeck();
 
     @Override
