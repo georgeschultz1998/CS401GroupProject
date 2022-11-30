@@ -35,8 +35,11 @@ public class Deck {
         return starterDeck.size();
     }
     
-    public int drawCard() {
-        
+    public String drawCard(int initial) {
+
+        int critical = 0;
+        int total = 0;
+        //StringBuilder str = new StringBuilder("Player deals " + total + " damage.");
         int max = starterDeck.size();
         Random rand = new Random();
         int random = rand.nextInt(max);
@@ -46,14 +49,23 @@ public class Deck {
         usedDeck.add(value);
         //testing for implementation later(crit and miss), maybe remove when drawn?
         if (value == -3) {
-            System.out.println("Player drew a miss... shuffling deck.");
+            //System.out.println("Player drew a miss... shuffling deck.");
+            critical = initial *0;
+            StringBuilder strc = new StringBuilder("Player drew a miss... Damage dealt is: " + critical + ". Shuffling deck.");
+
             shuffle();
+            return strc.toString();
         }
         if (value == 3) {
-            System.out.println("Player drew a crit! Shuffling deck.");
+            //System.out.println("Player drew a crit! Shuffling deck.");
+            critical = initial*2;
+            StringBuilder strc = new StringBuilder("Player drew a crit! Damage dealt is: " + critical + ". Shuffling deck.");
             shuffle();
+            return strc.toString();
         }
-        return value;
+        total = initial + value;
+        StringBuilder str = new StringBuilder("Player drew a " + value + ". Player deals " +total + " damage.");
+        return str.toString();
     }
     
     public void addCard(int value) {
@@ -85,6 +97,7 @@ public class Deck {
         }
         usedDeck.clear();
     }
+
     
     
     public static void main(String[] args) {
@@ -93,41 +106,41 @@ public class Deck {
         //d1.addCard(5);
         //will make unit test later
         System.out.println(d1.getDeck());
-        System.out.println(d1.drawCard());
+        System.out.println(d1.drawCard(2));
         System.out.println(d1.getDeck());
         System.out.println(d1.getUsed());
-        System.out.println(d1.drawCard());
+        System.out.println(d1.drawCard(2));
         System.out.println(d1.getDeck());
         System.out.println(d1.getUsed());
-        System.out.println(d1.drawCard());
+        System.out.println(d1.drawCard(2));
         System.out.println(d1.getDeck());
         System.out.println(d1.getUsed());
-        System.out.println(d1.drawCard());
+        System.out.println(d1.drawCard(1));
         System.out.println(d1.getDeck());
         System.out.println(d1.getUsed());
-        System.out.println(d1.drawCard());
+        System.out.println(d1.drawCard(1));
         System.out.println(d1.getDeck());
         System.out.println(d1.getUsed());
-        System.out.println(d1.drawCard());
+        System.out.println(d1.drawCard(1));
         System.out.println(d1.getDeck());
         System.out.println(d1.getUsed());
-        System.out.println(d1.drawCard());
+        System.out.println(d1.drawCard(0));
         System.out.println(d1.getDeck());
         System.out.println(d1.getUsed());
-        System.out.println(d1.drawCard());
+        System.out.println(d1.drawCard(0));
         System.out.println(d1.getDeck());
         System.out.println(d1.getUsed());
-        System.out.println(d1.drawCard());
+        System.out.println(d1.drawCard(0));
         System.out.println(d1.getDeck());
         System.out.println(d1.getUsed());
-        System.out.println(d1.drawCard());
+        System.out.println(d1.drawCard(4));
         System.out.println(d1.getDeck());
         System.out.println(d1.getUsed());
-        System.out.println(d1.drawCard());
+        System.out.println(d1.drawCard(4));
         System.out.println(d1.getDeck());
         System.out.println(d1.getUsed());
         
-        d1.removeCard(3);
+        d1.removeCard(5);
         System.out.println("Removing card");
         System.out.println(d1.getDeck());
         

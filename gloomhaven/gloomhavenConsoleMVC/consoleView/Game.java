@@ -80,10 +80,14 @@ public class Game {
             col = stdin.nextInt();
             System.out.print("Please pick direction to place domino (LEFT, UP, RIGHT, DOWN): ");
             dir = getValidDirection();
+            //removing this for now since nonfunctional domino play to test
+            /*
             if (board.place(player.get(domToPlay), row, col, dir)) {
                 player.remove(domToPlay);
                 return true;
             }
+            */
+
             // To get more helpful error messages, using an exception
             // would be convenient
             System.out.println("Not a legal move. Attempts left = " + --tries);
@@ -155,18 +159,20 @@ public class Game {
                 playerIndex++) {
             System.out.print("Please enter the name of player " + playerIndex + ": ");
             name = stdin.next();
-            players[playerIndex] = new Player(name, board);
+            players[playerIndex] = new Player(name, deck);
         }
         //dealDominoes();
 
     }
 
     // Assign dominoes to each player
-    private int drawModifier() {
+    private String drawModifier(int attack) {
         //Domino nextDom = deck.drawCard();
-        int value = deck.drawCard();
+
+        //temp putting a parameter in
+
         int nextPlayer = 0;
-        return value;
+        return deck.drawCard(attack);
         
     }
     
