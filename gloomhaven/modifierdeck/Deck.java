@@ -105,6 +105,8 @@ public class Deck {
         Deck d1 = new Deck();
         //d1.addCard(5);
         //will make unit test later
+        //these down here will test shuffle, and crit messages in the drawCard
+        //as well as random card draw since that cant be tested
         System.out.println(d1.getDeck());
         System.out.println(d1.drawCard(2));
         System.out.println(d1.getDeck());
