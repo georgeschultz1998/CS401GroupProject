@@ -1,29 +1,73 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
 
 import com.sun.javafx.scene.traversal.Direction;
+import examples.heptalionConsoleMVC.heptalion.Domino;
 
-/**
- * The standard Heptalion board
- * @author David
- */
+import java.util.Collections;
+import java.util.List;
+import java.util.*;
+
+
+
 public class Board {
-    private final BoardPiece BLANK_HEX = new BoardPiece(Symbol.HEXAGON);
+    List < List < String >> temp;
+    private final List<List<String>> board = createBoard(temp);
 
-    // The complete 11 x 11 board
-    private final BoardPiece[][] board = {
-        {BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX},
-            {BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX},
-            {BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX},
-            {BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX},
-            {BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX},
-        {new BoardPiece(Symbol.USER), BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX, BLANK_HEX}
+    public static List < List < String >> createBoard(List<List<String>> board) {
+        String hex = "⬣";
+        String user = "👤";
+        String undead = "👻";
+        String bandit = "😡";
+
+        List < String > row1 = new ArrayList<>();
+        List < String > row2  = new ArrayList<>();
+        List < String > row3  = new ArrayList<>();
+        List < String > row4  = new ArrayList<>();
+        List < String > row5  = new ArrayList<>();
+        List < String > row6  = new ArrayList<>();
+        List < String > location  = new ArrayList<>();
+
+        String[] row1Array = {
+                "----------------------\n","|" , "   X1" ," X2" ," X3" ," X4", "|\n"
         };
-            
-    // To make it a bit easier to figure out where a position is
-    // The ending 0 is for 10
-    private static final String TOPGUIDE = "----------------------\n    0  1   2  3  4  5 \n";
 
-    
+        String[] row2Array = {
+                "|Y1" + " ", hex + "  ", hex + "  ", hex + "  ", hex + " |\n"
+        };
+
+        String[] row3Array = {
+                "|Y2" + " ", hex + "  ", undead + " ", hex + "  ", hex + " |\n"
+        };
+
+        String[] row4Array = {
+                "|Y3" + " ", hex + "  ", hex + "  ", undead + " ", hex + " |\n"
+        };
+
+        String[] row5Array = {
+                "|Y4" + " ", hex + "  ", hex + "  ", hex + "  ", hex + " |\n"
+        };
+
+        String[] row6Array = {
+                "|Y5" + " ", user + " ", hex + "  ", hex + "  ", hex + " |\n", "---------------------\n"
+        };
+
+        Collections.addAll(row1, row1Array);
+        Collections.addAll(row2, row2Array);
+        Collections.addAll(row3, row3Array);
+        Collections.addAll(row4, row4Array);
+        Collections.addAll(row5, row5Array);
+        Collections.addAll(row6, row6Array);
+
+        board.add(row1);
+        board.add(row2);
+        board.add(row3);
+        board.add(row4);
+        board.add(row5);
+        board.add(row6);
+
+        return board;
+    }
+
     /**
      * Get String representation of entire board
      * @return the representation
@@ -33,46 +77,42 @@ public class Board {
         StringBuilder result = new StringBuilder();
         int rowNum = 0;
 
-        result.append("______________________");
-        result.append("\n|         MAP         |\n");
+        result.append("_________________\n");
+        result.append("|      MAP      |\n");
+        int i = 0;
+        for (List element : board) {
+            result.append(board.get(i));
+            i++;
+        }
+        result.append("_________________\n");
 
-        result.append(TOPGUIDE);
-        for (BoardPiece[] row : board) {
-            // Use last digit here to be consistent with digits across
-            // the top and to make it easier to line things up
-            result.append("|");
-            result.append(lastDigit(rowNum++));
-            result.append(" ");
-            for (BoardPiece sq : row) {
-                result.append(sq.toString());
+        String formattedString = result.toString();
+
+        return formattedString;
+    }
+
+    public static void updateLocations(List<List<String>> map, String[] mapCord) {
+        Integer currentXCord = -1;
+        Integer xCord = Integer.parseInt(mapCord[0]);
+        Integer yCord = Integer.parseInt(mapCord[1]);
+        Scanner scan = new Scanner(System.in); // Create a Scanner object
+        //System.out.println(map.get(yCord).get(xCord));
+        if (map.get(yCord).get(xCord).equals("⬣  ")){
+
+            for (int i = 0; i < map.size(); i++) {
+                currentXCord = map.get(i).indexOf("👤 ");
+                if (!(currentXCord.equals(-1))){
+                    map.get(i).set(currentXCord, "⬣  ");
+                    i = map.size();
+                }
             }
-            result.append('\n');
+            map.get(yCord).set(xCord, "👤 ");
         }
-        return result.toString();
-    }
+        else{
+            System.out.println("Cannot move there, please choose an empty space.");
+        }
+     }
 
-    /**
-     * Try to place domino at a specific position in a certain direction
-     * @param dom the domino to place
-     * @param row the row where to place the domino
-     * @param col the column where to place the domino
-     * @param dir the direction in which rest of domino lies
-     * @return true if placement was successful, false if not
-     */
-    public boolean place(Domino dom, int row, int col, Direction dir) {
-        int row2 = computeRow(row, dir);
-        int col2 = computeCol(col, dir);
-        if (invalidRow(row) || invalidRow(row2)
-                || invalidCol(col) || invalidCol(col2))
-            return false;
-        if (board[row][col].hasSymbol(dom.getSymbol1())
-                && board[row2][col2].hasSymbol(dom.getSymbol2())) {
-            board[row][col].markUsed();
-            board[row2][col2].markUsed();
-            return true;
-        }
-        return false;
-    }
 
     // Return row of 2nd half of domino
     private int computeRow(int row, Direction dir) {
@@ -92,21 +132,11 @@ public class Board {
         return col;
     }
 
-    // Return true if row is not valid, false if valid
-    private boolean invalidRow(int row) {
-        return (row < 0 || row >= board.length);
-    }
-
-    // Return true if column is not valid, false if valid
-    private boolean invalidCol(int col) {
-        return (col < 0 || col >= board[0].length);
-    }
-    
     // return last digit of number
     private int lastDigit(int num) {
         // Giving 10 a name here would not really make sense
         // since it does not represent anything else
         return num % 10;
     }
-    
+
 }
