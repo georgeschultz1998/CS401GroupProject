@@ -1,5 +1,5 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.modDeck;
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Deck;
 
 /**
  * Gloomhaven character
@@ -9,7 +9,7 @@ import gloomhaven.gloomhavenConsoleMVC.gloomhaven.modDeck;
 public class CharacterGenerator {
 
     public static void main(String[] args) {
-        modDeck deck;
+        Deck deck;
         Tinkerer tinkerer = new Tinkerer("Foo", 100, 0 , 0, 6);
         Cragheart crag = new Cragheart("Bar", 100, 1, 1, 12);
         Brute brute = new Brute("Buzz",100,2,2,3);

@@ -14,14 +14,14 @@ public class Player {
     //List<Domino> hand;
     private static Scanner stdin = new Scanner(System.in);
     //Board board;
-    modDeck d1 = new modDeck();
+    Deck d1 = new Deck();
 
     /**
      * Initialize Player information
      * @param _name name of player
      * @param _deck modDeck for drawing
      */
-    public Player(String _name, String _pClass, modDeck _deck) {
+    public Player(String _name, String _pClass, Deck _deck) {
         name = _name;
         pClass = _pClass;
         d1 = _deck;
@@ -71,7 +71,7 @@ public class Player {
         return pClass;
     }
 
-    public void set(modDeck newHandSize) {
+    public void set(Deck newHandSize) {
         this.d1 = newHandSize;
     }
     public int getHandSize() {

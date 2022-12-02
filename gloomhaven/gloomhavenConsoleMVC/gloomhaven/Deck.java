@@ -1,52 +1,36 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
 
-
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  *
- * @author Bryan Le
+ * @author Bryan le
  */
-public class modDeck {
+public class Deck {
     //int starterDeck[] = {-3,-2,-1,-1,-1,-1,-1,0,0,0,0,0,0,1,1,1,1,1,2,3};
     //init starter deck
-    ArrayList<Integer> starterDeck = new ArrayList<>(Arrays.asList(-3, -2, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 3));
+    ArrayList<Integer> starterDeck = new ArrayList<>(Arrays.asList(-3,-2,-1,-1,-1,-1,-1,0,0,0,0,0,0,1,1,1,1,1,2,3));
     ArrayList<Integer> usedDeck = new ArrayList<>();
     //private int[] deck = new int[19];
 
     //ArrayList<Integer> deck;
 
-    public modDeck() {
+    public Deck() {
 
     }
-
     //full deck and discard pile
-    /**
-     * Initialize Player modDeck
-     * @param deck initialized started deck for a player
-     * @param used used pile of modifiers, shuffle in when drawing crit/miss
-     */
-    public modDeck(ArrayList deck, ArrayList used) {
+    public Deck(ArrayList deck, ArrayList used){
         deck = starterDeck;
         used = usedDeck;
 
     }
 
-    /**
-     * @return the size of the player's modifier deck
-     */
     public int getSize() {
-
         return starterDeck.size();
     }
 
-    /**
-     * Draws the modifier and adds it to the attack given.
-     * @param initial the attack without modifier
-     * @return text message of modifier drawn and daamge dealt, also when shuffling deck.
-     */
     public String drawCard(int initial) {
 
         int critical = 0;
@@ -55,6 +39,7 @@ public class modDeck {
         int max = starterDeck.size();
         Random rand = new Random();
         int random = rand.nextInt(max);
+        //System.out.println(random);
         int value = starterDeck.get(random);
         starterDeck.remove(random);
         usedDeck.add(value);
@@ -75,24 +60,15 @@ public class modDeck {
             return strc.toString();
         }
         total = initial + value;
-        StringBuilder str = new StringBuilder("Player deals " + total + " damage.");
+        StringBuilder str = new StringBuilder("Player drew a " + value + ". Player deals " +total + " damage.");
         return str.toString();
     }
 
-    /**
-     * Adds a card to the player's modifier deck.
-     * @param value a card to add.
-     */
     public void addCard(int value) {
         //maybe add Bless/Curse later, as +/- 4 to distinguish from regular cards
         starterDeck.add(value);
     }
 
-    /**
-     * Removes a card from the player's modifier deck.
-     * @param value a card to remove.
-     * Does nothing if value is not found in a player's deck.
-     */
     public void removeCard(int value) {
         //remove Bless/Curse if able
         starterDeck.remove(Integer.valueOf(value));
@@ -108,15 +84,65 @@ public class modDeck {
     }
 
     //for reshuffling after drawing the crit
-    /**
-     * Reshuffles the modifier deck when crit/miss is drawn.
-     */
     public void shuffle() {
 
-        for (int i = 0; i < usedDeck.size(); i++) {
+        for(int i = 0; i < usedDeck.size(); i++)
+        {
             int value = usedDeck.get(i);
             starterDeck.add(value);
         }
         usedDeck.clear();
     }
+
+
+
+    public static void main(String[] args) {
+
+        Deck d1 = new Deck();
+        //d1.addCard(5);
+        //will make unit test later
+        //these down here will test shuffle, and crit messages in the drawCard
+        //as well as random card draw since that cant be tested
+        System.out.println(d1.getDeck());
+        System.out.println(d1.drawCard(2));
+        System.out.println(d1.getDeck());
+        System.out.println(d1.getUsed());
+        System.out.println(d1.drawCard(2));
+        System.out.println(d1.getDeck());
+        System.out.println(d1.getUsed());
+        System.out.println(d1.drawCard(2));
+        System.out.println(d1.getDeck());
+        System.out.println(d1.getUsed());
+        System.out.println(d1.drawCard(1));
+        System.out.println(d1.getDeck());
+        System.out.println(d1.getUsed());
+        System.out.println(d1.drawCard(1));
+        System.out.println(d1.getDeck());
+        System.out.println(d1.getUsed());
+        System.out.println(d1.drawCard(1));
+        System.out.println(d1.getDeck());
+        System.out.println(d1.getUsed());
+        System.out.println(d1.drawCard(0));
+        System.out.println(d1.getDeck());
+        System.out.println(d1.getUsed());
+        System.out.println(d1.drawCard(0));
+        System.out.println(d1.getDeck());
+        System.out.println(d1.getUsed());
+        System.out.println(d1.drawCard(0));
+        System.out.println(d1.getDeck());
+        System.out.println(d1.getUsed());
+        System.out.println(d1.drawCard(4));
+        System.out.println(d1.getDeck());
+        System.out.println(d1.getUsed());
+        System.out.println(d1.drawCard(4));
+        System.out.println(d1.getDeck());
+        System.out.println(d1.getUsed());
+
+        d1.removeCard(5);
+        System.out.println("Removing card");
+        System.out.println(d1.getDeck());
+
+
+    }
+
 }

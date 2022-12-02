@@ -1,6 +1,6 @@
 package gloomhaven.gloomhavenConsoleMVC.consoleView;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Board;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.modDeck;
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Deck;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Player;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Game {
     Board board;
     Player[] player;
-    static modDeck deck;
+    static Deck deck;
     private Scanner stdin = new Scanner(System.in);
     static final int NUM_PLAYERS = 2;
     private static final int MAX_TRIES = 3;
