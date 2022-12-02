@@ -21,7 +21,7 @@ abstract public class PlayableCharacter implements CharacterInterface {
         xPos = _xPos;
         yPos = _yPos;
         gold = _gold;
-        deck = new Deck();
+        deck = new modDeck();
     }
 
     public String getName() {

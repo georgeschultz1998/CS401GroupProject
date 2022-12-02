@@ -27,6 +27,7 @@ public class AbilityCard {
     @Override
     public String toString() {
 
+        return "";
     }
 
     // Setters and getters for abilitiy card variables
