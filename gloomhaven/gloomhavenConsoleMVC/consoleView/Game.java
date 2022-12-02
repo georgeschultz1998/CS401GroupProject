@@ -4,7 +4,6 @@ import com.sun.javafx.scene.traversal.Direction;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Board;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.modDeck;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -38,6 +37,11 @@ public class Game {
     public static void playGloomhaven() {
         Player player1 = new Player("Default", "Default", deck);
         System.out.println("This is a console-based version of Gloomhaven.");
+        System.out.println("Enter user name: ");
+        Scanner scan = new Scanner(System.in); // Create a Scanner object
+        String userName = scan.nextLine();
+        player1.setName(userName);
+        System.out.println("Welcome to Gloomhaven " + userName + "!");
         chooseClass(player1);
 
         List<List<String>> board = new ArrayList<List<String>>();
@@ -46,7 +50,6 @@ public class Game {
                 .replace("[", "")  //remove the right bracket
                 .replace("]", "")  //remove the left bracket
                 .trim());
-        Scanner scan = new Scanner(System.in); // Create a Scanner object
         System.out.println("");
         System.out.println("Menu Options:");
         System.out.println("Enter 'M' to move your player.");
@@ -135,7 +138,7 @@ public class Game {
             player.setPClass("HUMAN SCOUNDREL");
         }
 
-        System.out.println("User has chosen class: " + player.getPClass());
+        System.out.println(player.getName() + " has chosen class: " + player.getPClass());
 
     }
 
