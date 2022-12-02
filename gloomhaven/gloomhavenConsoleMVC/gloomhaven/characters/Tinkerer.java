@@ -1,4 +1,9 @@
-package gloomhaven.characters;
+package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters;
+
+/**
+ * Gloomhaven character
+ * @author Stefan Fuller
+ */
 
 public class Tinkerer extends PlayableCharacter {
     public Tinkerer(String _name, int _hp, int _xPos, int _yPos, int _gold) {

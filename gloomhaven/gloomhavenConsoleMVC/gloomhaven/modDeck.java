@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 /**
  *
- * @author lipux
+ * @author Bryan Le
  */
 public class modDeck {
     //int starterDeck[] = {-3,-2,-1,-1,-1,-1,-1,0,0,0,0,0,0,1,1,1,1,1,2,3};

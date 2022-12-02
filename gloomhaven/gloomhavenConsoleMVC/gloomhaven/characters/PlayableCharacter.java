@@ -1,5 +1,10 @@
-package gloomhaven.characters;
-import gloomhaven.Deck.Deck;
+package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters;
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.modDeck;
+
+/**
+ * Gloomhaven character
+ * @author Stefan Fuller
+ */
 
 abstract public class PlayableCharacter implements CharacterInterface {
 
@@ -7,7 +12,7 @@ abstract public class PlayableCharacter implements CharacterInterface {
     protected int hp;
     protected int xPos;
     protected int yPos;
-    protected Deck deck;
+    protected modDeck deck;
     protected int gold;
 
     public PlayableCharacter(String _name, int _hp, int _xPos, int _yPos, int _gold) {

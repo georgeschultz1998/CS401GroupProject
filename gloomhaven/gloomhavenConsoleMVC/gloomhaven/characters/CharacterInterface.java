@@ -1,4 +1,4 @@
-package gloomhaven.characters;
+package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters;
 
 public interface CharacterInterface {
     public String getName();
