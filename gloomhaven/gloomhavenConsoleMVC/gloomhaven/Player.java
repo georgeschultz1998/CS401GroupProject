@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class Player {
     private String name;
+    private String details;
     //List<Domino> hand;
     private static Scanner stdin = new Scanner(System.in);
     //Board board;
@@ -20,17 +21,16 @@ public class Player {
      * @param _name name of player
      * @param _deck modDeck for drawing
      */
-    public Player(String _name, modDeck _deck) {
+    public Player(String _name, String _details, modDeck _deck) {
         name = _name;
+        details = _details;
         d1 = _deck;
-
     }
     
     /**
      * Adds a modifier card to player's deck
      */
     public void addMod(int value) {
-
         d1.addCard(value);
     }
 
@@ -61,11 +61,9 @@ public class Player {
      * @return the player's name
      */
     public String getName() {
-
         return name;
     }
 
-    // Get the number of dominos left in the player's hand
     //Probably better for hand of ability cards, temp for now
     public int getHandSize() {
 

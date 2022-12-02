@@ -1,23 +1,17 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
 
 import com.sun.javafx.scene.traversal.Direction;
-import examples.heptalionConsoleMVC.heptalion.Domino;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.*;
 
-
-
 public class Board {
+    private static final Hexagon BLANK_HEX = new Hexagon(Symbol.HEXAGON);
     List < List < String >> temp;
     private final List<List<String>> board = createBoard(temp);
 
     public static List < List < String >> createBoard(List<List<String>> board) {
-        String hex = "⬣";
-        String user = "👤";
-        String undead = "👻";
-        String bandit = "😡";
 
         List < String > row1 = new ArrayList<>();
         List < String > row2  = new ArrayList<>();
@@ -28,27 +22,27 @@ public class Board {
         List < String > location  = new ArrayList<>();
 
         String[] row1Array = {
-                "----------------------\n","|" , "   X1" ," X2" ," X3" ," X4", "|\n"
+                "-------------------------\n"," " , "    X1" ,"  X2" ," X3" ," X4", " \n"
         };
 
         String[] row2Array = {
-                "|Y1" + " ", hex + "  ", hex + "  ", hex + "  ", hex + " |\n"
+                "|Y1" + " ", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + " |\n"
         };
 
         String[] row3Array = {
-                "|Y2" + " ", hex + "  ", undead + " ", hex + "  ", hex + " |\n"
+                "|Y2" + " ", BLANK_HEX + "", new Hexagon(Symbol.UNDEAD) + "", BLANK_HEX + "", BLANK_HEX + " |\n"
         };
 
         String[] row4Array = {
-                "|Y3" + " ", hex + "  ", hex + "  ", undead + " ", hex + " |\n"
+                "|Y3" + " ", BLANK_HEX + "", BLANK_HEX + "", new Hexagon(Symbol.UNDEAD) + "", BLANK_HEX + " |\n"
         };
 
         String[] row5Array = {
-                "|Y4" + " ", hex + "  ", hex + "  ", hex + "  ", hex + " |\n"
+                "|Y4" + " ", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + " |\n"
         };
 
         String[] row6Array = {
-                "|Y5" + " ", user + " ", hex + "  ", hex + "  ", hex + " |\n", "---------------------\n"
+                "|Y5" + " ", new Hexagon(Symbol.USER) + "", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + " |\n", "------------------------\n"
         };
 
         Collections.addAll(row1, row1Array);
@@ -97,16 +91,16 @@ public class Board {
         Integer yCord = Integer.parseInt(mapCord[1]);
         Scanner scan = new Scanner(System.in); // Create a Scanner object
         //System.out.println(map.get(yCord).get(xCord));
-        if (map.get(yCord).get(xCord).equals("⬣  ")){
+        if (map.get(yCord).get(xCord).equals(BLANK_HEX + "")){
 
             for (int i = 0; i < map.size(); i++) {
-                currentXCord = map.get(i).indexOf("👤 ");
+                currentXCord = map.get(i).indexOf(new Hexagon(Symbol.USER) + "");
                 if (!(currentXCord.equals(-1))){
-                    map.get(i).set(currentXCord, "⬣  ");
+                    map.get(i).set(currentXCord, BLANK_HEX + "");
                     i = map.size();
                 }
             }
-            map.get(yCord).set(xCord, "👤 ");
+            map.get(yCord).set(xCord, (new Hexagon(Symbol.USER) + ""));
         }
         else{
             System.out.println("Cannot move there, please choose an empty space.");
