@@ -1,5 +1,4 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
-import com.sun.javafx.scene.traversal.Direction;
 import java.util.Collections;
 import java.util.List;
 import java.util.*;
@@ -109,30 +108,5 @@ public class Board {
         }
      }
 
-
-    // Return row of 2nd half of domino
-    private int computeRow(int row, Direction dir) {
-        if (dir.equals(Direction.UP))
-            return row - 1;
-        if (dir.equals(Direction.DOWN))
-            return row + 1;
-        return row;
-    }
-
-    // Return column of 2nd half of domino
-    private int computeCol(int col, Direction dir) {
-        if (dir.equals(Direction.LEFT))
-            return col - 1;
-        if (dir.equals(Direction.RIGHT))
-            return col + 1;
-        return col;
-    }
-
-    // return last digit of number
-    private int lastDigit(int num) {
-        // Giving 10 a name here would not really make sense
-        // since it does not represent anything else
-        return num % 10;
-    }
 
 }

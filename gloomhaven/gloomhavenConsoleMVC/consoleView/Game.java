@@ -1,6 +1,4 @@
 package gloomhaven.gloomhavenConsoleMVC.consoleView;
-
-import com.sun.javafx.scene.traversal.Direction;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Board;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.modDeck;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Player;
