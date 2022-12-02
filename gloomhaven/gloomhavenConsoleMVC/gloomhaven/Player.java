@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Player {
     private String name;
-    private String details;
+    private String pClass;
     //List<Domino> hand;
     private static Scanner stdin = new Scanner(System.in);
     //Board board;
@@ -21,9 +21,9 @@ public class Player {
      * @param _name name of player
      * @param _deck modDeck for drawing
      */
-    public Player(String _name, String _details, modDeck _deck) {
+    public Player(String _name, String _pClass, modDeck _deck) {
         name = _name;
-        details = _details;
+        pClass = _pClass;
         d1 = _deck;
     }
     
@@ -56,22 +56,27 @@ public class Player {
         
     }
 
-    /**
-     * Added function: get name of player
-     * @return the player's name
-     */
+    // Setters and getters for player variables
+    public void setName(String newName) {
+        this.name = newName;
+    }
     public String getName() {
         return name;
     }
 
-    //Probably better for hand of ability cards, temp for now
+    public void setPClass(String newClass) {
+        this.pClass = newClass;
+    }
+    public String getPClass() {
+        return pClass;
+    }
+
+    public void set(modDeck newHandSize) {
+        this.d1 = newHandSize;
+    }
     public int getHandSize() {
 
         return d1.getSize();
     }
-
-    // retrieve domino at indicated position
-
-
 
 }

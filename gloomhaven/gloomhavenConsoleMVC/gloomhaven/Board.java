@@ -1,10 +1,12 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
-
 import com.sun.javafx.scene.traversal.Direction;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.*;
+/**
+ * Gloomhaven board
+ * @author Anthony Schultz
+ */
 
 public class Board {
     private static final Hexagon BLANK_HEX = new Hexagon(Symbol.HEXAGON);
