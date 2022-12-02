@@ -20,7 +20,6 @@ public class Board {
         List < String > row4  = new ArrayList<>();
         List < String > row5  = new ArrayList<>();
         List < String > row6  = new ArrayList<>();
-        List < String > location  = new ArrayList<>();
 
         String[] row1Array = {
                 "-------------------------\n"," " , "    X1" ,"  X2" ," X3" ," X4", " \n"
