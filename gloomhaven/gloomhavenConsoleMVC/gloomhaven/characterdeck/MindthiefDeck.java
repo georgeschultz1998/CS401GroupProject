@@ -12,15 +12,19 @@ public class MindthiefDeck {
     ArrayList<AbilityCard> deck = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> discard = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
+    AbilityCard current = new AbilityCard(0,0);
 
-    AbilityCard card0 = new AbilityCard(1, 1, 1);
-    AbilityCard card1 = new AbilityCard(1, 1, 2);
-    AbilityCard card2 = new AbilityCard(1, 2, 2);
-    AbilityCard card3 = new AbilityCard(2, 2, 2);
-    AbilityCard card4 = new AbilityCard(2, 2, 3);
-    AbilityCard card5 = new AbilityCard(2, 3, 3);
-    AbilityCard card6 = new AbilityCard(3, 3, 3);
-    AbilityCard card7 = new AbilityCard(4, 3, 3);
+    AbilityCard card0 = new AbilityCard(2,2);
+    AbilityCard card1 = new AbilityCard(2,2);
+    AbilityCard card2 = new AbilityCard(2,2);
+    AbilityCard card3 = new AbilityCard(1,3);
+    AbilityCard card4 = new AbilityCard(1,3);
+    AbilityCard card5 = new AbilityCard(3,1);
+    AbilityCard card6 = new AbilityCard(3,1);
+    AbilityCard card7 = new AbilityCard(0,5);
+    AbilityCard card8 = new AbilityCard(4,1);
+    AbilityCard card9 = new AbilityCard(8,0);
+    AbilityCard card10 = new AbilityCard(6,1);
 
     public MindthiefDeck() {
         deck.add(card0);
@@ -31,15 +35,15 @@ public class MindthiefDeck {
         deck.add(card5);
         deck.add(card6);
         deck.add(card7);
-
+        deck.add(card8);
+        deck.add(card9);
+        deck.add(card10);
     }
-
     //for losing cards permanently(for scenario)
     public void loseCard(int position) {
         AbilityCard card = discard.get(position);
         removeList.add(card);
     }
-
     //for discarding cards
     public void removeCard(int position) {
         AbilityCard card = deck.get(position);
@@ -57,7 +61,9 @@ public class MindthiefDeck {
         deck.add(card5);
         deck.add(card6);
         deck.add(card7);
-
+        deck.add(card8);
+        deck.add(card9);
+        deck.add(card10);
         for (int i = 0; i < removeList.size(); i++) {
             AbilityCard value = (removeList.get(i));
             //System.out.println(value);
@@ -71,10 +77,19 @@ public class MindthiefDeck {
         return deck.size();
     }
 
-    public void enemyDraw() {
-        Random r = new Random();
-        int i = r.nextInt(deck.size());
-        removeCard(i);
+    public void drawCard(int position) {
+        current = deck.get(position);
+        attack = current.getAttack();
+        move = current.getMove();
+        deck.remove(position);
+    }
+
+    public int attackMod() {
+        return current.getAttack();
+    }
+
+    public int moveMod() {
+        return current.getMove();
     }
 
     /**
@@ -87,7 +102,6 @@ public class MindthiefDeck {
         loseCard(i);
         refreshDeck();
     }
-
     /**
      * User inputs a card position to remove.
      */
@@ -99,7 +113,6 @@ public class MindthiefDeck {
         loseCard(num);
         refreshDeck();
     }
-
     public void display() {
         for (int i = 0; i < deck.size(); i++) {
             System.out.print(AbilityCard.printTopCard());
@@ -109,12 +122,6 @@ public class MindthiefDeck {
             AbilityCard current = deck.get(i);
             int currentAttack = current.getAttack();
             System.out.print(AbilityCard.printAttack(currentAttack));
-        }
-        System.out.println();
-        for (int i = 0; i < deck.size(); i++) {
-            AbilityCard current = deck.get(i);
-            int currentRange = current.getRange();
-            System.out.print(AbilityCard.printRange(currentRange));
         }
         System.out.println();
         for (int i = 0; i < deck.size(); i++) {
@@ -151,9 +158,4 @@ public class MindthiefDeck {
         }
         System.out.println();
     }
-
-    public AbilityCard getCard(int index) {
-        return deck.get(index);
-    }
-
 }
