@@ -1,18 +1,20 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters;
 
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BanditDeck;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BruteDeck;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.SpellweaverDeck;
 
 /**
  * Gloomhaven character
+ *
  * @author Stefan Fuller
  */
 
 public class Spellweaver extends PlayableCharacter {
     protected SpellweaverDeck deck;
 
-    public Spellweaver(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _move, SpellweaverDeck _deck) {
-        super(_name, _hp, _xPos, _yPos, _gold, _attack, _move);
+    public Spellweaver(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, SpellweaverDeck _deck) {
+        super(_name, _hp, _xPos, _yPos, _gold, _attack, _range, _move);
         deck = _deck;
     }
 

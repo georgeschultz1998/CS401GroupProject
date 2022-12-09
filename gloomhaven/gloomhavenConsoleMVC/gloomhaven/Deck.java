@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
  * @author Bryan le
  */
 public class Deck {
     //int starterDeck[] = {-3,-2,-1,-1,-1,-1,-1,0,0,0,0,0,0,1,1,1,1,1,2,3};
     //init starter deck
-    ArrayList<Integer> starterDeck = new ArrayList<>(Arrays.asList(-3,-2,-1,-1,-1,-1,-1,0,0,0,0,0,0,1,1,1,1,1,2,3));
+    ArrayList<Integer> starterDeck = new ArrayList<>(Arrays.asList(-3, -2, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 3));
     ArrayList<Integer> usedDeck = new ArrayList<>();
     //private int[] deck = new int[19];
 
@@ -20,8 +19,9 @@ public class Deck {
     public Deck() {
 
     }
+
     //full deck and discard pile
-    public Deck(ArrayList deck, ArrayList used){
+    public Deck(ArrayList deck, ArrayList used) {
         deck = starterDeck;
         used = usedDeck;
 
@@ -46,7 +46,7 @@ public class Deck {
         //testing for implementation later(crit and miss), maybe remove when drawn?
         if (value == -3) {
             //System.out.println("Player drew a miss... shuffling deck.");
-            critical = initial *0;
+            critical = initial * 0;
             StringBuilder strc = new StringBuilder("Player drew a miss... Damage dealt is: " + critical + ". Shuffling deck.");
 
             shuffle();
@@ -54,13 +54,13 @@ public class Deck {
         }
         if (value == 3) {
             //System.out.println("Player drew a crit! Shuffling deck.");
-            critical = initial*2;
+            critical = initial * 2;
             StringBuilder strc = new StringBuilder("Player drew a crit! Damage dealt is: " + critical + ". Shuffling deck.");
             shuffle();
             return strc.toString();
         }
         total = initial + value;
-        StringBuilder str = new StringBuilder("Player drew a " + value + ". Player deals " +total + " damage.");
+        StringBuilder str = new StringBuilder("Player drew a " + value + ". Player deals " + total + " damage.");
         return str.toString();
     }
 
@@ -86,14 +86,12 @@ public class Deck {
     //for reshuffling after drawing the crit
     public void shuffle() {
 
-        for(int i = 0; i < usedDeck.size(); i++)
-        {
+        for (int i = 0; i < usedDeck.size(); i++) {
             int value = usedDeck.get(i);
             starterDeck.add(value);
         }
         usedDeck.clear();
     }
-
 
 
     public static void main(String[] args) {

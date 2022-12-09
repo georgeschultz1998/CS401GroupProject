@@ -6,6 +6,7 @@ import java.util.Random;
 
 /**
  * Ability card
+ *
  * @author Bryan Le
  */
 
@@ -82,12 +83,14 @@ public class AbilityCard {
     public int getDeckSize() {
         return deckSize;
     }
+
     //TODO
     public static int shortRest() {
         Random r = new Random();
         int i = r.nextInt(deckSize);
         return i;
     }
+
     //TODO
     public void longRest() {
 

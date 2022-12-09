@@ -34,11 +34,13 @@ public class UndeadDeck {
         deck.add(card7);
 
     }
+
     //for losing cards permanently(for scenario)
     public void loseCard(int position) {
         AbilityCard card = discard.get(position);
         removeList.add(card);
     }
+
     //for discarding cards
     public void removeCard(int position) {
         AbilityCard card = deck.get(position);
@@ -86,6 +88,7 @@ public class UndeadDeck {
         loseCard(i);
         refreshDeck();
     }
+
     /**
      * User inputs a card position to remove.
      */
@@ -97,7 +100,8 @@ public class UndeadDeck {
         loseCard(num);
         refreshDeck();
     }
-    public void display () {
+
+    public void display() {
         for (int i = 0; i < deck.size(); i++) {
             System.out.print(AbilityCard.printTopCard());
         }
@@ -148,6 +152,7 @@ public class UndeadDeck {
         }
         System.out.println();
     }
+
     public AbilityCard getCard(int index) {
         return deck.get(index);
     }

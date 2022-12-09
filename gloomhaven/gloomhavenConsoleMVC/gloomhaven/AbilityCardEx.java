@@ -2,6 +2,7 @@ package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
 
 /**
  * Ability card
+ *
  * @author Anthony Schultz
  */
 
@@ -34,6 +35,7 @@ public class AbilityCardEx {
     public void setName(String newName) {
         this.name = newName;
     }
+
     public String getName() {
         return name;
     }
@@ -41,6 +43,7 @@ public class AbilityCardEx {
     public void setLevel(int newLevel) {
         this.level = newLevel;
     }
+
     public int getLevel() {
         return level;
     }
@@ -48,6 +51,7 @@ public class AbilityCardEx {
     public void setIntitiativeNumberl(int newInitiativeNumber) {
         this.level = newInitiativeNumber;
     }
+
     public int getIntitiativeNumber() {
         return intitiativeNumber;
     }
@@ -55,6 +59,7 @@ public class AbilityCardEx {
     public void setTopAction(String newTopAction) {
         this.name = newTopAction;
     }
+
     public String getTopAction() {
         return topAction;
     }
@@ -62,6 +67,7 @@ public class AbilityCardEx {
     public void setBottomAction(String newBottomAction) {
         this.name = newBottomAction;
     }
+
     public String getBottomAction() {
         return bottomAction;
     }
@@ -69,6 +75,7 @@ public class AbilityCardEx {
     public void setAbilities(String[] newAbilities) {
         this.abilities = newAbilities;
     }
+
     public String[] getAbilities() {
         return abilities;
     }

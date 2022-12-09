@@ -1,20 +1,18 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters;
 
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BruteDeck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.CragheartDeck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.MindthiefDeck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.SpellweaverDeck;
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.*;
 
 /**
  * Gloomhaven character
+ *
  * @author Stefan Fuller
  */
 
 public class Cragheart extends PlayableCharacter {
     protected CragheartDeck deck;
 
-    public Cragheart(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _move, CragheartDeck _deck) {
-        super(_name, _hp, _xPos, _yPos, _gold, _attack, _move);
+    public Cragheart(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, CragheartDeck _deck) {
+        super(_name, _hp, _xPos, _yPos, _gold, _attack, _range, _move);
         deck = _deck;
     }
 

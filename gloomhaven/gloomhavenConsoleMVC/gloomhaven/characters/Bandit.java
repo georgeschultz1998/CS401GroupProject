@@ -9,10 +9,10 @@ import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BruteDeck;
  * @author Stefan Fuller
  */
 
-public class Brute extends PlayableCharacter {
-    protected BruteDeck deck;
+public class Bandit extends PlayableCharacter {
+    protected BanditDeck deck;
 
-    public Brute(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, BruteDeck _deck) {
+    public Bandit(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, BanditDeck _deck) {
         super(_name, _hp, _xPos, _yPos, _gold, _attack, _range, _move);
         deck = _deck;
     }
@@ -36,7 +36,7 @@ public class Brute extends PlayableCharacter {
         deck.display();
     }
 
-    public BruteDeck getDeck() {
+    public BanditDeck getDeck() {
         return deck;
     }
 

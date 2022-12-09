@@ -1,20 +1,18 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters;
 
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BruteDeck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.MindthiefDeck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.ScoundrelDeck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.SpellweaverDeck;
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.*;
 
 /**
  * Gloomhaven character
+ *
  * @author Stefan Fuller
  */
 
 public class Mindthief extends PlayableCharacter {
     protected MindthiefDeck deck;
 
-    public Mindthief(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _move, MindthiefDeck _deck) {
-        super(_name, _hp, _xPos, _yPos, _gold, _attack, _move);
+    public Mindthief(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, MindthiefDeck _deck) {
+        super(_name, _hp, _xPos, _yPos, _gold, _attack, _range, _move);
         deck = _deck;
     }
 

@@ -1,8 +1,10 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters;
+
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Deck;
 
 /**
  * Gloomhaven character
+ *
  * @author Stefan Fuller
  */
 
