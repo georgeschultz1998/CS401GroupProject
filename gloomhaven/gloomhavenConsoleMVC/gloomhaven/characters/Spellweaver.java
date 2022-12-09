@@ -1,16 +1,17 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters;
 
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BruteDeck;
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.SpellweaverDeck;
 
 /**
  * Gloomhaven character
  * @author Stefan Fuller
  */
 
-public class Brute extends PlayableCharacter {
-    protected BruteDeck deck;
+public class Spellweaver extends PlayableCharacter {
+    protected SpellweaverDeck deck;
 
-    public Brute(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _move, BruteDeck _deck) {
+    public Spellweaver(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _move, SpellweaverDeck _deck) {
         super(_name, _hp, _xPos, _yPos, _gold, _attack, _move);
         deck = _deck;
     }
@@ -34,9 +35,8 @@ public class Brute extends PlayableCharacter {
         deck.display();
     }
 
-    public BruteDeck getDeck() {
+    public SpellweaverDeck getDeck() {
         return deck;
     }
-
 
 }

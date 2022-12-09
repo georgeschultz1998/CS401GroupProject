@@ -12,14 +12,14 @@ public class TinkererDeck {
     ArrayList<AbilityCard> discard = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
 
-    AbilityCard card0 = new AbilityCard(2,3);
-    AbilityCard card1 = new AbilityCard(2,3);
-    AbilityCard card2 = new AbilityCard(2,3);
-    AbilityCard card3 = new AbilityCard(3,2);
-    AbilityCard card4 = new AbilityCard(3,2);
-    AbilityCard card5 = new AbilityCard(3,2);
-    AbilityCard card6 = new AbilityCard(3,3);
-    AbilityCard card7 = new AbilityCard(3,3);
+    AbilityCard card0 = new AbilityCard(1,1, 1);
+    AbilityCard card1 = new AbilityCard(1,1, 2);
+    AbilityCard card2 = new AbilityCard(1,2, 2);
+    AbilityCard card3 = new AbilityCard(2,2, 2);
+    AbilityCard card4 = new AbilityCard(2,2, 3);
+    AbilityCard card5 = new AbilityCard(2,3, 3);
+    AbilityCard card6 = new AbilityCard(3,3, 3);
+    AbilityCard card7 = new AbilityCard(4,3, 3);
 
 
     public TinkererDeck() {
@@ -63,28 +63,6 @@ public class TinkererDeck {
         }
 
     }
-    public void display() {
-        for (int i = 0; i < deck.size(); i++) {
-            System.out.print(AbilityCard.printTopCard());
-        }
-        System.out.println();
-        for (int i = 0; i < deck.size(); i++) {
-            AbilityCard current = deck.get(i);
-            int currentAttack = current.getAttack();
-            System.out.print(AbilityCard.printAttack(currentAttack));
-        }
-        System.out.println();
-        for (int i = 0; i < deck.size(); i++) {
-            AbilityCard current = deck.get(i);
-            int currentMove = current.getMove();
-            System.out.print(AbilityCard.printMove(currentMove));
-        }
-        System.out.println();
-        for (int i = 0; i < deck.size(); i++) {
-            System.out.print(AbilityCard.printBottomCard());
-        }
-        System.out.println();
-    }
 
     public void displayDiscard() {
         for (int i = 0; i < discard.size(); i++) {
@@ -107,5 +85,8 @@ public class TinkererDeck {
             System.out.print(AbilityCard.printBottomCard());
         }
         System.out.println();
+    }
+    public AbilityCard getCard(int index) {
+        return deck.get(index);
     }
 }

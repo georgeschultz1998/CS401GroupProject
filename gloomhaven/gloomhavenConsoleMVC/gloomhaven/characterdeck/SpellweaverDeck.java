@@ -12,14 +12,14 @@ public class SpellweaverDeck {
     ArrayList<AbilityCard> discard = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
 
-    AbilityCard card0 = new AbilityCard(2,2);
-    AbilityCard card1 = new AbilityCard(2,2);
-    AbilityCard card2 = new AbilityCard(1,3);
-    AbilityCard card3 = new AbilityCard(3,1);
-    AbilityCard card4 = new AbilityCard(5,2);
-    AbilityCard card5 = new AbilityCard(5,2);
-    AbilityCard card6 = new AbilityCard(4,3);
-    AbilityCard card7 = new AbilityCard(4,3);
+    AbilityCard card0 = new AbilityCard(1,1, 1);
+    AbilityCard card1 = new AbilityCard(1,1, 2);
+    AbilityCard card2 = new AbilityCard(1,2, 2);
+    AbilityCard card3 = new AbilityCard(2,2, 2);
+    AbilityCard card4 = new AbilityCard(2,2, 3);
+    AbilityCard card5 = new AbilityCard(2,3, 3);
+    AbilityCard card6 = new AbilityCard(3,3, 3);
+    AbilityCard card7 = new AbilityCard(4,3, 3);
 
 
     public SpellweaverDeck() {
@@ -31,6 +31,7 @@ public class SpellweaverDeck {
         deck.add(card5);
         deck.add(card6);
         deck.add(card7);
+
     }
     //for losing cards permanently(for scenario)
     public void loseCard(int position) {
@@ -62,7 +63,40 @@ public class SpellweaverDeck {
         }
 
     }
-    public void display() {
+
+    public int getDeckSize() {
+
+        return deck.size();
+    }
+
+    public void enemyDraw() {
+        Random r = new Random();
+        int i = r.nextInt(deck.size());
+        removeCard(i);
+    }
+
+    /**
+     * Short rest, takes a random card in the discard and moves it to lost
+     */
+
+    public void shortRest() {
+        Random r = new Random();
+        int i = r.nextInt(discard.size());
+        loseCard(i);
+        refreshDeck();
+    }
+    /**
+     * User inputs a card position to remove.
+     */
+    public void longRest() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the position of the card to lose: ");
+        int num = sc.nextInt();
+        sc.close();
+        loseCard(num);
+        refreshDeck();
+    }
+    public void display () {
         for (int i = 0; i < deck.size(); i++) {
             System.out.print(AbilityCard.printTopCard());
         }
@@ -71,6 +105,12 @@ public class SpellweaverDeck {
             AbilityCard current = deck.get(i);
             int currentAttack = current.getAttack();
             System.out.print(AbilityCard.printAttack(currentAttack));
+        }
+        System.out.println();
+        for (int i = 0; i < deck.size(); i++) {
+            AbilityCard current = deck.get(i);
+            int currentRange = current.getRange();
+            System.out.print(AbilityCard.printRange(currentRange));
         }
         System.out.println();
         for (int i = 0; i < deck.size(); i++) {
@@ -107,4 +147,8 @@ public class SpellweaverDeck {
         }
         System.out.println();
     }
+    public AbilityCard getCard(int index) {
+        return deck.get(index);
+    }
+
 }

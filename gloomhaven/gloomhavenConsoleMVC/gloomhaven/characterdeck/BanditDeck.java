@@ -2,8 +2,9 @@ package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
-public class UndeadDeck {
+public class BanditDeck {
     private int attack;
     private int move;
     private static int deckSize;
@@ -12,17 +13,17 @@ public class UndeadDeck {
     ArrayList<AbilityCard> discard = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
 
-    AbilityCard card0 = new AbilityCard(1, 1, 1);
-    AbilityCard card1 = new AbilityCard(1, 1, 2);
-    AbilityCard card2 = new AbilityCard(1, 2, 2);
-    AbilityCard card3 = new AbilityCard(2, 2, 2);
-    AbilityCard card4 = new AbilityCard(2, 2, 3);
-    AbilityCard card5 = new AbilityCard(2, 3, 3);
-    AbilityCard card6 = new AbilityCard(3, 3, 3);
-    AbilityCard card7 = new AbilityCard(4, 3, 3);
+    AbilityCard card0 = new AbilityCard(1,1, 1);
+    AbilityCard card1 = new AbilityCard(1,1, 2);
+    AbilityCard card2 = new AbilityCard(1,2, 2);
+    AbilityCard card3 = new AbilityCard(2,2, 2);
+    AbilityCard card4 = new AbilityCard(2,2, 3);
+    AbilityCard card5 = new AbilityCard(2,3, 3);
+    AbilityCard card6 = new AbilityCard(3,3, 3);
+    AbilityCard card7 = new AbilityCard(4,3, 3);
 
 
-    public UndeadDeck() {
+    public BanditDeck() {
         deck.add(card0);
         deck.add(card1);
         deck.add(card2);
@@ -31,21 +32,20 @@ public class UndeadDeck {
         deck.add(card5);
         deck.add(card6);
         deck.add(card7);
-
     }
     //for losing cards permanently(for scenario)
-    public void loseCard(int position) {
+    public void loseCard ( int position){
         AbilityCard card = discard.get(position);
         removeList.add(card);
     }
     //for discarding cards
-    public void removeCard(int position) {
+    public void removeCard ( int position){
         AbilityCard card = deck.get(position);
         discard.add(card);
         deck.remove(card);
     }
 
-    public void refreshDeck() {
+    public void refreshDeck () {
         deck.clear();
         deck.add(card0);
         deck.add(card1);
@@ -63,6 +63,34 @@ public class UndeadDeck {
         }
 
     }
+
+    public int getDeckSize () {
+
+        return deck.size();
+    }
+
+    /**
+     * Short rest, takes a random card in the discard and moves it to lost
+     */
+
+    public void shortRest () {
+        Random r = new Random();
+        int i = r.nextInt(discard.size());
+        loseCard(i);
+        refreshDeck();
+    }
+    /**
+     * User inputs a card position to remove.
+     */
+    public void longRest () {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the position of the card to lose: ");
+        int num = sc.nextInt();
+        sc.close();
+        loseCard(num);
+        refreshDeck();
+    }
+
     public void display () {
         for (int i = 0; i < deck.size(); i++) {
             System.out.print(AbilityCard.printTopCard());
@@ -92,7 +120,7 @@ public class UndeadDeck {
         System.out.println();
     }
 
-    public void displayDiscard() {
+    public void displayDiscard () {
         for (int i = 0; i < discard.size(); i++) {
             System.out.print(AbilityCard.printTopCard());
         }
@@ -114,8 +142,8 @@ public class UndeadDeck {
         }
         System.out.println();
     }
-    public AbilityCard getCard(int index) {
+    public AbilityCard getCard ( int index){
         return deck.get(index);
     }
-
 }
+

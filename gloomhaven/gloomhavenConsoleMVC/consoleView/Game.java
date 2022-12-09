@@ -1,7 +1,9 @@
 package gloomhaven.gloomhavenConsoleMVC.consoleView;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Board;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Deck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Player;
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.*;
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -13,7 +15,6 @@ import java.util.Scanner;
  */
 public class Game {
     Board board;
-    Player[] player;
     static Deck deck;
     private Scanner stdin = new Scanner(System.in);
     static final int NUM_PLAYERS = 2;
@@ -32,17 +33,22 @@ public class Game {
      *
      * @return true if the player successfully makes a play, false if not
      */
+
     public static void playGloomhaven() {
-        Player player1 = new Player("Default", "Default", deck);
         System.out.println("This is a console-based version of Gloomhaven.");
         System.out.println("Enter user name: ");
         Scanner scan = new Scanner(System.in); // Create a Scanner object
         String userName = scan.nextLine();
-        player1.setName(userName);
         System.out.println("Welcome to Gloomhaven " + userName + "!");
-        chooseClass(player1);
-        gameIntroduction();
-        quest1Introduction();
+
+        String classChoice = chooseClass();
+
+        Brute brutePlayer = new Brute(userName, 20, 1, 5, 10, 1,1,new BruteDeck());
+        Spellweaver spellPlayer = new Spellweaver(userName, 20, 1, 5, 10,1,1, new SpellweaverDeck());
+        Tinkerer tinkPlayer = new Tinkerer(userName, 20, 1, 5, 10,1,1, new TinkererDeck());
+        Cragheart cragPlayer = new Cragheart(userName, 20, 1, 5, 10,1,1, new CragheartDeck());
+        Mindthief mindPlayer = new Mindthief(userName, 20, 1, 5, 10,1,1, new MindthiefDeck());
+        Scoundrel scoundrelPlayer = new Scoundrel(userName, 20, 1, 5, 10,1,1, new ScoundrelDeck());
 
         List<List<String>> board = new ArrayList<List<String>>();
         Board.createBoard(board);
@@ -52,17 +58,109 @@ public class Game {
                 .trim());
         System.out.println("");
         System.out.println("Menu Options:");
+        System.out.println("Enter 'A' to attack enemy.");
         System.out.println("Enter 'M' to move your player.");
+        System.out.println("Enter 'C' to choose card");
         System.out.println("Enter 'Q' to quit.");
 
         String userAnswer = scan.nextLine();
         userAnswer = userAnswer.toUpperCase();
         while (!(userAnswer.equals("Q"))) {
-            if (userAnswer.equals("M")) {
+            if (userAnswer.equals("A")) {
+
+            }
+                if (userAnswer.equals("M")) {
+                System.out.println(board.toString().replace(",", "")  //remove the commas
+                        .replace("[", "")  //remove the right bracket
+                        .replace("]", "")  //remove the left bracket
+                        .trim());
+                System.out.println("");
                 System.out.println("Enter location to move to: (Example: 1,4 would move you to position X1 Y4)");
                 userAnswer = scan.nextLine();
                 userAnswer = userAnswer.toUpperCase();
                 String[] mapCord = userAnswer.split("[,]", 0);
+
+                int currentX = 100;
+                int currentY = 100;
+                int toX = Integer.parseInt(mapCord[0]);
+                int toY = Integer.parseInt(mapCord[1]);
+                int moveAbility = 0;
+                int absDiff = Math.abs(currentX - toX);
+                int absDiff2 = Math.abs(currentY - toY);
+
+                while(absDiff > moveAbility || (absDiff2 > moveAbility)) {
+                    System.out.println("Cannot move there, your move ability is not high enough");
+                    System.out.println("Enter location to move to: ");
+                    userAnswer = scan.nextLine();
+                    userAnswer = userAnswer.toUpperCase();
+                    mapCord = userAnswer.split("[,]", 0);
+                    toX = Integer.parseInt(mapCord[0]);
+                    toY = Integer.parseInt(mapCord[1]);
+                    if (classChoice.equals("1")) {
+                        currentX = brutePlayer.getXPos();
+                        currentY = brutePlayer.getYPos();
+                        moveAbility = brutePlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+                    } else if (classChoice.equals("2")) {
+                        currentX = spellPlayer.getXPos();
+                        currentY = spellPlayer.getYPos();
+                        moveAbility = spellPlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+
+                    } else if (classChoice.equals("3")) {
+                        currentX = cragPlayer.getXPos();
+                        currentY = cragPlayer.getYPos();
+                        moveAbility = cragPlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+
+                    } else if (classChoice.equals("4")) {
+                        currentX = mindPlayer.getXPos();
+                        currentY = mindPlayer.getYPos();
+                        moveAbility = mindPlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+
+                    } else if (classChoice.equals("5")) {
+                        currentX = tinkPlayer.getXPos();
+                        currentY = tinkPlayer.getYPos();
+                        moveAbility = tinkPlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+
+                    } else if (classChoice.equals("6")) {
+                        currentX = scoundrelPlayer.getXPos();
+                        currentY = scoundrelPlayer.getYPos();
+                        moveAbility = scoundrelPlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+
+                    }
+
+                }
+
+                if (classChoice.equals("1")) {
+                    brutePlayer.setXPos(toX);
+                    brutePlayer.setYPos(toY);
+                } else if (classChoice.equals("2")) {
+                    spellPlayer.setXPos(toX);
+                    spellPlayer.setYPos(toY);
+                } else if (classChoice.equals("3")) {
+                    cragPlayer.setXPos(toX);
+                    cragPlayer.setYPos(toY);
+                } else if (classChoice.equals("4")) {
+                    mindPlayer.setXPos(toX);
+                    mindPlayer.setYPos(toY);
+                } else if (classChoice.equals("5")) {
+                    tinkPlayer.setXPos(toX);
+                    tinkPlayer.setYPos(toY);
+                } else if (classChoice.equals("6")) {
+                    scoundrelPlayer.setXPos(toX);
+                    scoundrelPlayer.setYPos(toY);
+                }
+
                 Board.updateLocations(board, mapCord);
                 System.out.println("");
                 System.out.println("User has been moved to: " + userAnswer);
@@ -70,16 +168,81 @@ public class Game {
                         .replace("[", "")  //remove the right bracket
                         .replace("]", "")  //remove the left bracket
                         .trim());
+            } else if (userAnswer.equals("C")) {
+                if (classChoice.equals("1")) {
+                    brutePlayer.displayDeck();
+                } else if (classChoice.equals("2")) {
+                    spellPlayer.displayDeck();
+                } else if (classChoice.equals("3")) {
+                    cragPlayer.displayDeck();
+                } else if (classChoice.equals("4")) {
+                    tinkPlayer.displayDeck();
+                } else if (classChoice.equals("5")) {
+                    mindPlayer.displayDeck();
+                } else if (classChoice.equals("6")) {
+                    scoundrelPlayer.displayDeck();
+                }
+                System.out.println("Which card would you like? (Ex- Enter '1' to choose card 1)");
+                String cardChoice = scan.nextLine();
+                while ((!(cardChoice.equals("1"))) && (!(cardChoice.equals("2"))) && (!(cardChoice.equals("3"))) && (!(cardChoice.equals("4"))) && (!(cardChoice.equals("5"))) && (!(cardChoice.equals("6"))) && (!(cardChoice.equals("7"))) && (!(cardChoice.equals("8")))) {
+                        System.out.println("You must enter a number from 1 to 8");
+                        cardChoice = scan.nextLine();
+                }
+
+                int attack = 0;
+                int move = 0;
+                if (classChoice.equals("1")) {
+                    attack = brutePlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                    move = brutePlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                    brutePlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                    brutePlayer.setAttack(attack);
+                    brutePlayer.setMove(move);
+                } else if (classChoice.equals("2")) {
+                    attack = spellPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                    move = spellPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                    spellPlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                    spellPlayer.setAttack(attack);
+                    spellPlayer.setMove(move);
+                } else if (classChoice.equals("3")) {
+                    attack = cragPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                    move = cragPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                    cragPlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                    cragPlayer.setAttack(attack);
+                    cragPlayer.setMove(move);
+                } else if (classChoice.equals("4")) {
+                    attack = tinkPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                    move = tinkPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                    tinkPlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                    tinkPlayer.setAttack(attack);
+                    tinkPlayer.setMove(move);
+                } else if (classChoice.equals("5")) {
+                    attack = mindPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                    move = mindPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                    mindPlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                    mindPlayer.setAttack(attack);
+                    mindPlayer.setMove(move);
+                } else if (classChoice.equals("6")) {
+                    attack = scoundrelPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                    move = scoundrelPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                    scoundrelPlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                    scoundrelPlayer.setAttack(attack);
+                    scoundrelPlayer.setMove(move);
+                }
+                System.out.println("Your attack will be set to: " + attack + " and your move will be set to: " + move);
             }
+
+
             System.out.println("Menu Options:");
+            System.out.println("Enter 'A' to attack enemy.");
             System.out.println("Enter 'M' to move your player.");
+            System.out.println("Enter 'C' to choose card");
             System.out.println("Enter 'Q' to quit.");
             userAnswer = scan.nextLine();
             userAnswer = userAnswer.toUpperCase();
         }
     }
 
-    private static void chooseClass(Player player) {
+        private static String chooseClass() {
         String output = "";
         output += "Below are the starter classes you can choose from for your player.\n";
         output += "1 - INOX BRUTE\n";
@@ -132,22 +295,24 @@ public class Game {
             classChoice = scan.nextLine();
             classChoice = classChoice.toUpperCase();
         }
+        String strClass = "";
         if (classChoice.equals("1")){
-            player.setPClass("INOX BRUTE");
+            strClass = ("INOX BRUTE");
         } else if (classChoice.equals("2")) {
-            player.setPClass("ORCHID SPELLWEAVER");
+            strClass = ("ORCHID SPELLWEAVER");
         }else if (classChoice.equals("3")) {
-            player.setPClass("QUATRYL TINKERER");
+            strClass = ("QUATRYL TINKERER");
         }else if (classChoice.equals("4")) {
-            player.setPClass("SAVVAS CRAGHEART");
+            strClass = ("SAVVAS CRAGHEART");
         }else if (classChoice.equals("5")) {
-            player.setPClass("VERMLING MINDTHIE");
+            strClass = ("VERMLING MINDTHIE");
         }else if (classChoice.equals("6")) {
-            player.setPClass("HUMAN SCOUNDREL");
+            strClass = ("HUMAN SCOUNDREL");
         }
 
-        System.out.println(player.getName() + " has chosen class: " + player.getPClass());
 
+        System.out.println("Chosen class: " + strClass);
+        return classChoice;
     }
 
     public static void gameIntroduction() {

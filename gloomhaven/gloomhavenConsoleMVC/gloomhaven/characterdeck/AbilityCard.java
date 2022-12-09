@@ -11,12 +11,14 @@ import java.util.Random;
 
 public class AbilityCard {
     private int attack;
+    private int range;
     private int move;
     private static int deckSize;
 
 
-    public AbilityCard(int _attack, int _move) {
+    public AbilityCard(int _attack, int _range, int _move) {
         attack = _attack;
+        range = _range;
         move = _move;
     }
 
@@ -36,6 +38,11 @@ public class AbilityCard {
     public static String printAttack(int a) {
         String printAttack = String.format("|ATK:%d| ", a);
         return printAttack;
+    }
+
+    public static String printRange(int r) {
+        String printRange = String.format("|RNG:%d| ", r);
+        return printRange;
     }
 
     public static String printMove(int m) {
@@ -62,6 +69,14 @@ public class AbilityCard {
 
     public int getMove() {
         return move;
+    }
+
+    public void setRange(int newRange) {
+        this.range = newRange;
+    }
+
+    public int getRange() {
+        return range;
     }
 
     public int getDeckSize() {

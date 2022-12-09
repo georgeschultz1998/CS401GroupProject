@@ -1,11 +1,11 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
-import java.util.Scanner;
+
 /**
  * Ability card
  * @author Anthony Schultz
  */
 
-public class AbilityCard {
+public class AbilityCardEx {
     private String name;
     private int intitiativeNumber;
     private int level;
@@ -14,7 +14,7 @@ public class AbilityCard {
     private String[] abilities;
 
 
-    public AbilityCard(String _name, int _intitiativeNumber, int _level, String _topAction, String _bottomAction, String[] _abilities) {
+    public AbilityCardEx(String _name, int _intitiativeNumber, int _level, String _topAction, String _bottomAction, String[] _abilities) {
         name = _name;
         intitiativeNumber = _intitiativeNumber;
         level = _level;
