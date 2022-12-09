@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class MindthiefDeck {
+public class BanditDeck {
     private int attack;
     private int move;
     private static int deckSize;
@@ -14,19 +14,17 @@ public class MindthiefDeck {
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
     AbilityCard current = new AbilityCard(0,0);
 
-    AbilityCard card0 = new AbilityCard(2,2);
-    AbilityCard card1 = new AbilityCard(2,2);
-    AbilityCard card2 = new AbilityCard(2,2);
-    AbilityCard card3 = new AbilityCard(1,3);
-    AbilityCard card4 = new AbilityCard(1,3);
-    AbilityCard card5 = new AbilityCard(3,1);
-    AbilityCard card6 = new AbilityCard(3,1);
-    AbilityCard card7 = new AbilityCard(0,5);
-    AbilityCard card8 = new AbilityCard(4,1);
-    AbilityCard card9 = new AbilityCard(8,0);
-    AbilityCard card10 = new AbilityCard(6,1);
+    AbilityCard card0 = new AbilityCard(1,2);
+    AbilityCard card1 = new AbilityCard(1,2);
+    AbilityCard card2 = new AbilityCard(0,3);
+    AbilityCard card3 = new AbilityCard(1,1);
+    AbilityCard card4 = new AbilityCard(1,1);
+    AbilityCard card5 = new AbilityCard(1,1);
+    AbilityCard card6 = new AbilityCard(2,0);
+    AbilityCard card7 = new AbilityCard(2,2);
 
-    public MindthiefDeck() {
+
+    public BanditDeck() {
         deck.add(card0);
         deck.add(card1);
         deck.add(card2);
@@ -35,9 +33,7 @@ public class MindthiefDeck {
         deck.add(card5);
         deck.add(card6);
         deck.add(card7);
-        deck.add(card8);
-        deck.add(card9);
-        deck.add(card10);
+
     }
     //for losing cards permanently(for scenario)
     public void loseCard(int position) {
@@ -61,9 +57,7 @@ public class MindthiefDeck {
         deck.add(card5);
         deck.add(card6);
         deck.add(card7);
-        deck.add(card8);
-        deck.add(card9);
-        deck.add(card10);
+
         for (int i = 0; i < removeList.size(); i++) {
             AbilityCard value = (removeList.get(i));
             //System.out.println(value);
@@ -75,6 +69,13 @@ public class MindthiefDeck {
     public int getDeckSize() {
 
         return deck.size();
+    }
+
+    public void enemyDraw() {
+        Random r = new Random();
+        int i = r.nextInt(deck.size());
+        drawCard(i);
+        removeCard(i);
     }
 
     public void drawCard(int position) {
@@ -113,6 +114,7 @@ public class MindthiefDeck {
         loseCard(num);
         refreshDeck();
     }
+
     public void display() {
         for (int i = 0; i < deck.size(); i++) {
             System.out.print(AbilityCard.printTopCard());
@@ -159,3 +161,4 @@ public class MindthiefDeck {
         System.out.println();
     }
 }
+

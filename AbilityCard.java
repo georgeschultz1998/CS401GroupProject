@@ -21,6 +21,11 @@ public class AbilityCard {
     }
 
 
+    /**
+     * Displays card in console, topofCard, ATK, MOV, bottomOfCard
+     */
+
+
     @Override
     public String toString() {
         String card = String.format("_______\n|ATK:%d|\n|MOV:%d|\n_______\n", attack, move);
@@ -48,6 +53,9 @@ public class AbilityCard {
         return printBottom;
     }
 
+    /**
+     * Get/Set for attack and moves
+     */
     public void setAttack(int newAttack) {
         this.attack = newAttack;
     }
@@ -67,15 +75,6 @@ public class AbilityCard {
     public int getDeckSize() {
         return deckSize;
     }
-    //TODO
-    public static int shortRest() {
-        Random r = new Random();
-        int i = r.nextInt(deckSize);
-        return i;
-    }
-    //TODO
-    public void longRest() {
 
-    }
 }
 

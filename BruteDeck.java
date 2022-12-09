@@ -2,6 +2,7 @@ package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class BruteDeck {
     private int attack;
@@ -11,6 +12,7 @@ public class BruteDeck {
     ArrayList<AbilityCard> deck = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> discard = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
+    AbilityCard current = new AbilityCard(0,0);
 
 
 
@@ -66,6 +68,49 @@ public class BruteDeck {
         }
 
     }
+
+    public int getDeckSize() {
+
+        return deck.size();
+    }
+
+    public void drawCard(int position) {
+        current = deck.get(position);
+        attack = current.getAttack();
+        move = current.getMove();
+        deck.remove(position);
+    }
+
+    public int attackMod() {
+        return current.getAttack();
+    }
+
+    public int moveMod() {
+        return current.getMove();
+    }
+
+    /**
+     * Short rest, takes a random card in the discard and moves it to lost
+     */
+
+    public void shortRest() {
+        Random r = new Random();
+        int i = r.nextInt(discard.size());
+        loseCard(i);
+        refreshDeck();
+    }
+    /**
+     * User inputs a card position to remove.
+     */
+    public void longRest() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the position of the card to lose: ");
+        int num = sc.nextInt();
+        sc.close();
+        loseCard(num);
+        refreshDeck();
+    }
+
     public void display() {
         for (int i = 0; i < deck.size(); i++) {
             System.out.print(AbilityCard.printTopCard());
