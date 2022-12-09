@@ -20,6 +20,11 @@ public class Game {
     static final int NUM_PLAYERS = 2;
     private static final int MAX_TRIES = 3;
     private static final String QUIT = "Q";
+    private static final Deck p1modDeck = new Deck();
+    private static final Deck p2modDeck = new Deck();
+    private static final Deck monsterDeck = new Deck();
+    private static final BanditDeck banditDeck = new BanditDeck();
+    private static final UndeadDeck undeadDeck = new UndeadDeck();
 
 
     // Return index of other player

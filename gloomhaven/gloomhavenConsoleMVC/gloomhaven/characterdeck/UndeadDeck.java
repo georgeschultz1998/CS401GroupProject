@@ -2,6 +2,7 @@ package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class UndeadDeck {
     private int attack;
@@ -62,6 +63,39 @@ public class UndeadDeck {
             deck.remove(value);
         }
 
+    }
+
+    public int getDeckSize() {
+
+        return deck.size();
+    }
+
+    public void enemyDraw() {
+        Random r = new Random();
+        int i = r.nextInt(deck.size());
+        removeCard(i);
+    }
+
+    /**
+     * Short rest, takes a random card in the discard and moves it to lost
+     */
+
+    public void shortRest() {
+        Random r = new Random();
+        int i = r.nextInt(discard.size());
+        loseCard(i);
+        refreshDeck();
+    }
+    /**
+     * User inputs a card position to remove.
+     */
+    public void longRest() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the position of the card to lose: ");
+        int num = sc.nextInt();
+        sc.close();
+        loseCard(num);
+        refreshDeck();
     }
     public void display () {
         for (int i = 0; i < deck.size(); i++) {

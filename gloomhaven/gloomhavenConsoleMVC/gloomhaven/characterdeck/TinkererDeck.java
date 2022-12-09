@@ -2,6 +2,7 @@ package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class TinkererDeck {
     private int attack;
@@ -62,6 +63,67 @@ public class TinkererDeck {
             deck.remove(value);
         }
 
+    }
+
+    public int getDeckSize() {
+
+        return deck.size();
+    }
+
+    public void enemyDraw() {
+        Random r = new Random();
+        int i = r.nextInt(deck.size());
+        removeCard(i);
+    }
+
+    /**
+     * Short rest, takes a random card in the discard and moves it to lost
+     */
+
+    public void shortRest() {
+        Random r = new Random();
+        int i = r.nextInt(discard.size());
+        loseCard(i);
+        refreshDeck();
+    }
+    /**
+     * User inputs a card position to remove.
+     */
+    public void longRest() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the position of the card to lose: ");
+        int num = sc.nextInt();
+        sc.close();
+        loseCard(num);
+        refreshDeck();
+    }
+    public void display () {
+        for (int i = 0; i < deck.size(); i++) {
+            System.out.print(AbilityCard.printTopCard());
+        }
+        System.out.println();
+        for (int i = 0; i < deck.size(); i++) {
+            AbilityCard current = deck.get(i);
+            int currentAttack = current.getAttack();
+            System.out.print(AbilityCard.printAttack(currentAttack));
+        }
+        System.out.println();
+        for (int i = 0; i < deck.size(); i++) {
+            AbilityCard current = deck.get(i);
+            int currentRange = current.getRange();
+            System.out.print(AbilityCard.printRange(currentRange));
+        }
+        System.out.println();
+        for (int i = 0; i < deck.size(); i++) {
+            AbilityCard current = deck.get(i);
+            int currentMove = current.getMove();
+            System.out.print(AbilityCard.printMove(currentMove));
+        }
+        System.out.println();
+        for (int i = 0; i < deck.size(); i++) {
+            System.out.print(AbilityCard.printBottomCard());
+        }
+        System.out.println();
     }
 
     public void displayDiscard() {

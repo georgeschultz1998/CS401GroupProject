@@ -2,6 +2,7 @@ package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class AngryFaceDeck {
     private int attack;
