@@ -1,5 +1,6 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters;
 
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Deck;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BanditDeck;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BruteDeck;
 
@@ -11,10 +12,12 @@ import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BruteDeck;
 
 public class Brute extends PlayableCharacter {
     protected BruteDeck deck;
+    protected Deck modDeck;
 
-    public Brute(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, BruteDeck _deck) {
+    public Brute(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, BruteDeck _deck, Deck _modDeck) {
         super(_name, _hp, _xPos, _yPos, _gold, _attack, _range, _move);
         deck = _deck;
+        modDeck = _modDeck;
     }
 
     @Override

@@ -31,7 +31,7 @@ public class Deck {
         return starterDeck.size();
     }
 
-    public String drawCard(int initial) {
+    public int drawCard(int initial) {
 
         int critical = 0;
         int total = 0;
@@ -50,17 +50,22 @@ public class Deck {
             StringBuilder strc = new StringBuilder("Player drew a miss... Damage dealt is: " + critical + ". Shuffling deck.");
 
             shuffle();
-            return strc.toString();
+            return critical;
         }
         if (value == 3) {
             //System.out.println("Player drew a crit! Shuffling deck.");
             critical = initial * 2;
             StringBuilder strc = new StringBuilder("Player drew a crit! Damage dealt is: " + critical + ". Shuffling deck.");
             shuffle();
-            return strc.toString();
+            return critical;
         }
         total = initial + value;
         StringBuilder str = new StringBuilder("Player drew a " + value + ". Player deals " + total + " damage.");
+        return total;
+    }
+
+    public String damageText(int totalDamage) {
+        StringBuilder str = new StringBuilder("Player deals " + totalDamage + " damage.");
         return str.toString();
     }
 

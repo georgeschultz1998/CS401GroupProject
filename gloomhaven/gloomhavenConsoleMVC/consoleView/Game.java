@@ -48,14 +48,14 @@ public class Game {
         String userName = scan.nextLine();
         System.out.println("Welcome to Gloomhaven " + userName + "!");
         String classChoice = chooseClass();
-        Brute brutePlayer = new Brute(userName, 20, 1, 5, 10, 1, 1, 1, new BruteDeck());
-        Spellweaver spellPlayer = new Spellweaver(userName, 20, 1, 5, 10, 1, 1, 1, new SpellweaverDeck());
-        Tinkerer tinkPlayer = new Tinkerer(userName, 20, 1, 5, 10, 1, 1, 1, new TinkererDeck());
-        Cragheart cragPlayer = new Cragheart(userName, 20, 1, 5, 10, 1, 1, 1, new CragheartDeck());
-        Mindthief mindPlayer = new Mindthief(userName, 20, 1, 5, 10, 1, 1, 1, new MindthiefDeck());
-        Scoundrel scoundrelPlayer = new Scoundrel(userName, 20, 1, 5, 10, 1, 1, 1, new ScoundrelDeck());
-        Undead undead1 = new Undead("UNDEAD1", 10, 2, 2, 10, 1, 1, 1, new UndeadDeck());
-        Undead undead2 = new Undead("UNDEAD2", 10, 3, 3, 10, 1, 1, 1, new UndeadDeck());
+        Brute brutePlayer = new Brute(userName, 20, 1, 5, 10, 1, 1, 1, new BruteDeck(), p1modDeck);
+        Spellweaver spellPlayer = new Spellweaver(userName, 20, 1, 5, 10, 1, 1, 1, new SpellweaverDeck(), p1modDeck);
+        Tinkerer tinkPlayer = new Tinkerer(userName, 20, 1, 5, 10, 1, 1, 1, new TinkererDeck(), p1modDeck);
+        Cragheart cragPlayer = new Cragheart(userName, 20, 1, 5, 10, 1, 1, 1, new CragheartDeck(), p1modDeck);
+        Mindthief mindPlayer = new Mindthief(userName, 20, 1, 5, 10, 1, 1, 1, new MindthiefDeck(), p1modDeck);
+        Scoundrel scoundrelPlayer = new Scoundrel(userName, 20, 1, 5, 10, 1, 1, 1, new ScoundrelDeck(), p1modDeck);
+        Undead undead1 = new Undead("UNDEAD1", 10, 2, 2, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
+        Undead undead2 = new Undead("UNDEAD2", 10, 3, 3, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
 
 
         List<List<String>> board = new ArrayList<List<String>>();
@@ -151,68 +151,78 @@ public class Game {
 
                     if (String.valueOf(undead1.getXPos()).equals(enemyCord[0]) && String.valueOf(undead1.getYPos()).equals(enemyCord[1])) {
                         int attackVal = 0;
+                        int modifiedAttack = 0;
                         if (classChoice.equals("1")) {
                             attackVal = brutePlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                             brutePlayer.setAttack(0);
                         } else if (classChoice.equals("2")) {
                             attackVal = spellPlayer.getAttack();
                             spellPlayer.setAttack(0);
-
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                         } else if (classChoice.equals("3")) {
                             attackVal = tinkPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                             tinkPlayer.setAttack(0);
-
                         } else if (classChoice.equals("4")) {
                             attackVal = cragPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                             cragPlayer.setAttack(0);
-
                         } else if (classChoice.equals("5")) {
                             attackVal = mindPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                             mindPlayer.setAttack(0);
-
                         } else if (classChoice.equals("6")) {
                             attackVal = scoundrelPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                             scoundrelPlayer.setAttack(0);
-
                         }
+                        System.out.println(p1modDeck.damageText(modifiedAttack));
                         int currentHP = undead1.getHP();
-                        undead1.setHP(currentHP - attackVal);
+                        undead1.setHP(currentHP - modifiedAttack);
                         if (undead1.getHP() <= 0) {
                             Board.removeEnemy(board, undead1.getXPos(), undead1.getYPos());
                         }
 
                     } else if (String.valueOf(undead2.getXPos()).equals(enemyCord[0]) && String.valueOf(undead2.getYPos()).equals(enemyCord[1])) {
                         int attackVal = 0;
+                        int modifiedAttack = 0;
                         if (classChoice.equals("1")) {
                             attackVal = brutePlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                             brutePlayer.setAttack(0);
                         } else if (classChoice.equals("2")) {
                             attackVal = spellPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                             spellPlayer.setAttack(0);
 
                         } else if (classChoice.equals("3")) {
                             attackVal = tinkPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                             tinkPlayer.setAttack(0);
 
                         } else if (classChoice.equals("4")) {
                             attackVal = cragPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                             cragPlayer.setAttack(0);
 
                         } else if (classChoice.equals("5")) {
                             attackVal = mindPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                             mindPlayer.setAttack(0);
 
                         } else if (classChoice.equals("6")) {
                             attackVal = scoundrelPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
                             scoundrelPlayer.setAttack(0);
 
                         }
                         int currentHP = undead2.getHP();
-                        undead2.setHP(currentHP - attackVal);
+                        System.out.println(p1modDeck.damageText(modifiedAttack));
+                        undead2.setHP(currentHP - modifiedAttack);
                         if (undead2.getHP() <= 0) {
                             Board.removeEnemy(board, undead2.getXPos(), undead2.getYPos());
                         }
-
                     } else {
                         System.out.println("No enemies at the location you entered.");
                     }
