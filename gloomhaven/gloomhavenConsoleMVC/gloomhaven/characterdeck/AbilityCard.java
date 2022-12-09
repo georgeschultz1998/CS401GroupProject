@@ -6,24 +6,22 @@ import java.util.Random;
 
 /**
  * Ability card
+ *
  * @author Bryan Le
  */
 
 public class AbilityCard {
     private int attack;
+    private int range;
     private int move;
     private static int deckSize;
 
 
-    public AbilityCard(int _attack, int _move) {
+    public AbilityCard(int _attack, int _range, int _move) {
         attack = _attack;
+        range = _range;
         move = _move;
     }
-
-
-    /**
-     * Displays card in console, topofCard, ATK, MOV, bottomOfCard
-     */
 
 
     @Override
@@ -43,6 +41,11 @@ public class AbilityCard {
         return printAttack;
     }
 
+    public static String printRange(int r) {
+        String printRange = String.format("|RNG:%d| ", r);
+        return printRange;
+    }
+
     public static String printMove(int m) {
         String printMove = String.format("|MOV:%d| ", m);
         return printMove;
@@ -53,9 +56,6 @@ public class AbilityCard {
         return printBottom;
     }
 
-    /**
-     * Get/Set for attack and moves
-     */
     public void setAttack(int newAttack) {
         this.attack = newAttack;
     }
@@ -72,9 +72,27 @@ public class AbilityCard {
         return move;
     }
 
+    public void setRange(int newRange) {
+        this.range = newRange;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
     public int getDeckSize() {
         return deckSize;
     }
 
-}
+    //TODO
+    public static int shortRest() {
+        Random r = new Random();
+        int i = r.nextInt(deckSize);
+        return i;
+    }
 
+    //TODO
+    public void longRest() {
+
+    }
+}

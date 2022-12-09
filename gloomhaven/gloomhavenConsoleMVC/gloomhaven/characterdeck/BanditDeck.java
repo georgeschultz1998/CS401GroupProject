@@ -12,16 +12,15 @@ public class BanditDeck {
     ArrayList<AbilityCard> deck = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> discard = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
-    AbilityCard current = new AbilityCard(0,0);
 
-    AbilityCard card0 = new AbilityCard(1,2);
-    AbilityCard card1 = new AbilityCard(1,2);
-    AbilityCard card2 = new AbilityCard(0,3);
-    AbilityCard card3 = new AbilityCard(1,1);
-    AbilityCard card4 = new AbilityCard(1,1);
-    AbilityCard card5 = new AbilityCard(1,1);
-    AbilityCard card6 = new AbilityCard(2,0);
-    AbilityCard card7 = new AbilityCard(2,2);
+    AbilityCard card0 = new AbilityCard(1, 1, 1);
+    AbilityCard card1 = new AbilityCard(1, 1, 2);
+    AbilityCard card2 = new AbilityCard(1, 2, 2);
+    AbilityCard card3 = new AbilityCard(2, 2, 2);
+    AbilityCard card4 = new AbilityCard(2, 2, 3);
+    AbilityCard card5 = new AbilityCard(2, 3, 3);
+    AbilityCard card6 = new AbilityCard(3, 3, 3);
+    AbilityCard card7 = new AbilityCard(4, 3, 3);
 
 
     public BanditDeck() {
@@ -33,13 +32,14 @@ public class BanditDeck {
         deck.add(card5);
         deck.add(card6);
         deck.add(card7);
-
     }
+
     //for losing cards permanently(for scenario)
     public void loseCard(int position) {
         AbilityCard card = discard.get(position);
         removeList.add(card);
     }
+
     //for discarding cards
     public void removeCard(int position) {
         AbilityCard card = deck.get(position);
@@ -71,28 +71,6 @@ public class BanditDeck {
         return deck.size();
     }
 
-    public void enemyDraw() {
-        Random r = new Random();
-        int i = r.nextInt(deck.size());
-        drawCard(i);
-        removeCard(i);
-    }
-
-    public void drawCard(int position) {
-        current = deck.get(position);
-        attack = current.getAttack();
-        move = current.getMove();
-        deck.remove(position);
-    }
-
-    public int attackMod() {
-        return current.getAttack();
-    }
-
-    public int moveMod() {
-        return current.getMove();
-    }
-
     /**
      * Short rest, takes a random card in the discard and moves it to lost
      */
@@ -103,6 +81,7 @@ public class BanditDeck {
         loseCard(i);
         refreshDeck();
     }
+
     /**
      * User inputs a card position to remove.
      */
@@ -124,6 +103,12 @@ public class BanditDeck {
             AbilityCard current = deck.get(i);
             int currentAttack = current.getAttack();
             System.out.print(AbilityCard.printAttack(currentAttack));
+        }
+        System.out.println();
+        for (int i = 0; i < deck.size(); i++) {
+            AbilityCard current = deck.get(i);
+            int currentRange = current.getRange();
+            System.out.print(AbilityCard.printRange(currentRange));
         }
         System.out.println();
         for (int i = 0; i < deck.size(); i++) {
@@ -160,5 +145,8 @@ public class BanditDeck {
         }
         System.out.println();
     }
-}
 
+    public AbilityCard getCard(int index) {
+        return deck.get(index);
+    }
+}
