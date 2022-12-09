@@ -10,14 +10,13 @@ class BanditDeckTest {
 
     @Test
     void drawCardTest() {
-        bd.drawCard(0);
-
+        bd.getCard(0);
 
     }
 
     @Test
     void attackModTest() {
-        bd.drawCard(0);
+        bd.getCard(0);
         int attack = bd.attackMod();
         assertEquals(attack, 1);
     }

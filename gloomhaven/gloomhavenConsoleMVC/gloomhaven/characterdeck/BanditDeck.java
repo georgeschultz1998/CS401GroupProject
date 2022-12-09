@@ -12,6 +12,7 @@ public class BanditDeck {
     ArrayList<AbilityCard> deck = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> discard = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
+    AbilityCard current = new AbilityCard(0,0,0);
 
     AbilityCard card0 = new AbilityCard(1, 1, 1);
     AbilityCard card1 = new AbilityCard(1, 1, 2);
@@ -69,6 +70,27 @@ public class BanditDeck {
     public int getDeckSize() {
 
         return deck.size();
+    }
+    public void enemyDraw() {
+        Random r = new Random();
+        int i = r.nextInt(deck.size());
+        drawCard(i);
+        removeCard(i);
+    }
+
+    public void drawCard(int position) {
+        current = deck.get(position);
+        attack = current.getAttack();
+        move = current.getMove();
+        deck.remove(position);
+    }
+
+    public int attackMod() {
+        return current.getAttack();
+    }
+
+    public int moveMod() {
+        return current.getMove();
     }
 
     /**
