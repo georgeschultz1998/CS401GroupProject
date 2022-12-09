@@ -13,14 +13,12 @@ public class UndeadDeck {
     ArrayList<AbilityCard> discard = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
 
-    AbilityCard card0 = new AbilityCard(1, 1, 1);
-    AbilityCard card1 = new AbilityCard(1, 1, 2);
-    AbilityCard card2 = new AbilityCard(1, 2, 2);
-    AbilityCard card3 = new AbilityCard(2, 2, 2);
-    AbilityCard card4 = new AbilityCard(2, 2, 3);
-    AbilityCard card5 = new AbilityCard(2, 3, 3);
-    AbilityCard card6 = new AbilityCard(3, 3, 3);
-    AbilityCard card7 = new AbilityCard(4, 3, 3);
+    AbilityCard card0 = new AbilityCard(1, 1, 2);
+    AbilityCard card1 = new AbilityCard(3, 1, 1);
+    AbilityCard card2 = new AbilityCard(3, 1, 2);
+    AbilityCard card3 = new AbilityCard(3, 1, 0);
+    AbilityCard card4 = new AbilityCard(3, 2, 0);
+    AbilityCard card5 = new AbilityCard(4, 2, 1);
 
 
     public UndeadDeck() {
@@ -30,8 +28,7 @@ public class UndeadDeck {
         deck.add(card3);
         deck.add(card4);
         deck.add(card5);
-        deck.add(card6);
-        deck.add(card7);
+
 
     }
 
@@ -56,8 +53,7 @@ public class UndeadDeck {
         deck.add(card3);
         deck.add(card4);
         deck.add(card5);
-        deck.add(card6);
-        deck.add(card7);
+
 
         for (int i = 0; i < removeList.size(); i++) {
             AbilityCard value = (removeList.get(i));

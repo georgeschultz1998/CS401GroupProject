@@ -14,14 +14,15 @@ public class BruteDeck {
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
 
 
-    AbilityCard card0 = new AbilityCard(1, 1, 1);
-    AbilityCard card1 = new AbilityCard(1, 1, 2);
-    AbilityCard card2 = new AbilityCard(1, 2, 2);
-    AbilityCard card3 = new AbilityCard(2, 2, 2);
-    AbilityCard card4 = new AbilityCard(2, 2, 3);
-    AbilityCard card5 = new AbilityCard(2, 3, 3);
-    AbilityCard card6 = new AbilityCard(3, 3, 3);
-    AbilityCard card7 = new AbilityCard(4, 3, 3);
+    AbilityCard card0 = new AbilityCard(2, 1, 2);
+    AbilityCard card1 = new AbilityCard(2, 1, 2);
+    AbilityCard card2 = new AbilityCard(3, 1, 1);
+    AbilityCard card3 = new AbilityCard(3, 1, 1);
+    AbilityCard card4 = new AbilityCard(2, 2, 1);
+    AbilityCard card5 = new AbilityCard(2, 1, 3);
+    AbilityCard card6 = new AbilityCard(4, 1, 1);
+    AbilityCard card7 = new AbilityCard(4, 1, 2);
+
 
     public BruteDeck() {
         deck.add(card0);
@@ -32,6 +33,7 @@ public class BruteDeck {
         deck.add(card5);
         deck.add(card6);
         deck.add(card7);
+
     }
 
     //for losing cards permanently(for scenario)
@@ -57,6 +59,7 @@ public class BruteDeck {
         deck.add(card5);
         deck.add(card6);
         deck.add(card7);
+
 
         for (int i = 0; i < removeList.size(); i++) {
             AbilityCard value = (removeList.get(i));
