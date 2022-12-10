@@ -23,8 +23,6 @@ public class CragheartDeck {
     AbilityCard card7 = new AbilityCard(4, 1, 2);
 
 
-
-
     public CragheartDeck() {
         deck.add(card0);
         deck.add(card1);

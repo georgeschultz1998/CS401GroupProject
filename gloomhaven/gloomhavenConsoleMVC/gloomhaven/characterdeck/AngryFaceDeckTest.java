@@ -7,8 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class AngryFaceDeckTest {
 
     AngryFaceDeck afd = new AngryFaceDeck();
+
     @Test
-    //test losing card, card does not get put back in the hand
+        //test losing card, card does not get put back in the hand
     void loseCardTest() {
         afd.removeCard(4);
         afd.loseCard(0);
@@ -37,6 +38,6 @@ class AngryFaceDeckTest {
         afd.removeCard(2);
         afd.refreshDeck();
         int result = afd.getDeckSize();
-        assertEquals(result,10);
+        assertEquals(result, 10);
     }
 }

@@ -14,9 +14,9 @@ public class BruteDeck {
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
 
 
-    AbilityCard card0 = new AbilityCard(2, 1, 2);
-    AbilityCard card1 = new AbilityCard(2, 1, 2);
-    AbilityCard card2 = new AbilityCard(3, 1, 1);
+    AbilityCard card0 = new AbilityCard(2, 5, 2);
+    AbilityCard card1 = new AbilityCard(2, 5, 2);
+    AbilityCard card2 = new AbilityCard(3, 5, 1);
     AbilityCard card3 = new AbilityCard(3, 1, 1);
     AbilityCard card4 = new AbilityCard(2, 2, 1);
     AbilityCard card5 = new AbilityCard(2, 1, 3);

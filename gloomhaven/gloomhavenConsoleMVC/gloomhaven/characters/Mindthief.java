@@ -12,6 +12,7 @@ import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.*;
 public class Mindthief extends PlayableCharacter {
     protected MindthiefDeck deck;
     protected Deck modDeck;
+
     public Mindthief(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, MindthiefDeck _deck, Deck _modDeck) {
         super(_name, _hp, _xPos, _yPos, _gold, _attack, _range, _move);
         deck = _deck;

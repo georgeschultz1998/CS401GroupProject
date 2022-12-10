@@ -91,7 +91,7 @@ public class Board {
         return formattedString;
     }
 
-    public static void updateLocations(List<List<String>> map, String[] mapCord) {
+    public static List<List<String>> updateLocations(List<List<String>> map, String[] mapCord) {
         Integer currentXCord = -1;
         Integer xCord = Integer.parseInt(mapCord[0]);
         Integer yCord = Integer.parseInt(mapCord[1]);
@@ -107,43 +107,22 @@ public class Board {
                 }
             }
             map.get(yCord).set(xCord, (new Hexagon(Symbol.USER) + ""));
-        } else if (map.get(yCord).get(xCord).equals(BLANK_HEX + "")) {
-
-            for (int i = 0; i < map.size(); i++) {
-                currentXCord = map.get(i).indexOf(new Hexagon(Symbol.USER) + "");
-                if (!(currentXCord.equals(-1))) {
-                    map.get(i).set(currentXCord, BLANK_HEX + "");
-                    i = map.size();
-                }
-            }
-            map.get(yCord).set(xCord, (new Hexagon(Symbol.USER) + ""));
         } else {
             System.out.println("Cannot move there, please choose an empty space.");
         }
+        return map;
     }
 
     public static void removeEnemy(List<List<String>> map, int x, int y) {
         map.get(y).set(x, (new Hexagon(Symbol.HEXAGON) + ""));
     }
 
-    public static void updateEnemyLocation(List<List<String>> map, int x, int y) {
+    public static List<List<String>> updateEnemyLocation(List<List<String>> map, int x, int y) {
         Integer currentXCord = -1;
         Integer xCord = x;
         Integer yCord = y;
         Scanner scan = new Scanner(System.in); // Create a Scanner object
-        //System.out.println(map.get(yCord).get(xCord));
         if (map.get(yCord).get(xCord).equals(BLANK_HEX + "")) {
-
-            for (int i = 0; i < map.size(); i++) {
-                currentXCord = map.get(i).indexOf(new Hexagon(Symbol.UNDEAD) + "");
-                if (!(currentXCord.equals(-1))) {
-                    map.get(i).set(currentXCord, BLANK_HEX + "");
-                    i = map.size();
-                }
-            }
-            map.get(yCord).set(xCord, (new Hexagon(Symbol.UNDEAD) + ""));
-        } else if (map.get(yCord).get(xCord).equals(BLANK_HEX + "")) {
-
             for (int i = 0; i < map.size(); i++) {
                 currentXCord = map.get(i).indexOf(new Hexagon(Symbol.UNDEAD) + "");
                 if (!(currentXCord.equals(-1))) {
@@ -155,6 +134,7 @@ public class Board {
         } else {
             System.out.println("Cannot move there, please choose an empty space.");
         }
+        return map;
     }
 
 

@@ -12,15 +12,14 @@ public class BanditDeck {
     ArrayList<AbilityCard> deck = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> discard = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
-    AbilityCard current = new AbilityCard(0,0,0);
+    AbilityCard current = new AbilityCard(0, 1, 0);
 
-    AbilityCard card0 = new AbilityCard(1, 1, 1);
-    AbilityCard card1 = new AbilityCard(1, 1, 1);
+    AbilityCard card0 = new AbilityCard(1, 2, 1);
+    AbilityCard card1 = new AbilityCard(1, 2, 1);
     AbilityCard card2 = new AbilityCard(1, 2, 2);
     AbilityCard card3 = new AbilityCard(2, 1, 0);
     AbilityCard card4 = new AbilityCard(2, 2, 3);
     AbilityCard card5 = new AbilityCard(3, 2, 0);
-
 
 
     public BanditDeck() {
@@ -68,6 +67,7 @@ public class BanditDeck {
 
         return deck.size();
     }
+
     public void enemyDraw() {
         Random r = new Random();
         int i = r.nextInt(deck.size());
