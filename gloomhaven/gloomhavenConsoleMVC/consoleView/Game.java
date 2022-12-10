@@ -7,6 +7,7 @@ import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -41,25 +42,11 @@ public class Game {
      * @return true if the player successfully makes a play, false if not
      */
 
-    public static void playGloomhaven() {
-        System.out.println("This is a console-based version of Gloomhaven.");
-        System.out.println("Enter user name: ");
-        Scanner scan = new Scanner(System.in); // Create a Scanner object
-        String userName = scan.nextLine();
-        System.out.println("Welcome to Gloomhaven " + userName + "!");
-        String classChoice = chooseClass();
-        Brute brutePlayer = new Brute(userName, 18, 1, 5, 10, 1, 1, 1, new BruteDeck(), p1modDeck);
-        Spellweaver spellPlayer = new Spellweaver(userName, 12, 1, 5, 10, 1, 1, 1, new SpellweaverDeck(), p1modDeck);
-        Tinkerer tinkPlayer = new Tinkerer(userName, 13, 1, 5, 10, 1, 1, 1, new TinkererDeck(), p1modDeck);
-        Cragheart cragPlayer = new Cragheart(userName, 16, 1, 5, 10, 1, 1, 1, new CragheartDeck(), p1modDeck);
-        Mindthief mindPlayer = new Mindthief(userName, 14, 1, 5, 10, 1, 1, 1, new MindthiefDeck(), p1modDeck);
-        Scoundrel scoundrelPlayer = new Scoundrel(userName, 13, 1, 5, 10, 1, 1, 1, new ScoundrelDeck(), p1modDeck);
-        Undead undead1 = new Undead("UNDEAD1", 8, 2, 2, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
-        Undead undead2 = new Undead("UNDEAD2", 8, 3, 3, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
+    public static void playScenario1(){
 
-
-        List<List<String>> board = new ArrayList<List<String>>();
-        Board.createBoard(board);
+    }
+    public static void printMap(List<List<String>> board, String classChoice, Brute brutePlayer, Spellweaver spellPlayer,
+                                Tinkerer tinkPlayer, Cragheart cragPlayer,Mindthief mindPlayer, Scoundrel scoundrelPlayer){
         System.out.println(board.toString().replace(",", "")  //remove the commas
                 .replace("[", "")  //remove the right bracket
                 .replace("]", "")  //remove the left bracket
@@ -80,8 +67,57 @@ public class Game {
 
         } else if (classChoice.equals("6")) {
             System.out.println(scoundrelPlayer.toString());
-
         }
+    }
+
+    public static String printMenuOptions(String userAnswer){
+        Scanner scan = new Scanner(System.in); // Create a Scanner object
+        System.out.println("Menu Options:");
+        System.out.println("Enter 'A' to attack enemy.");
+        System.out.println("Enter 'M' to move your player.");
+        System.out.println("Enter 'C' to choose card");
+        System.out.println("Enter 'Q' to quit.");
+        userAnswer = scan.nextLine();
+        userAnswer = userAnswer.toUpperCase();
+        return userAnswer;
+    }
+
+    public static boolean attackIsZero(Brute brutePlayer, Spellweaver spellPlayer,
+                                       Tinkerer tinkPlayer, Cragheart cragPlayer, Mindthief mindPlayer, Scoundrel scoundrelPlayer){
+        if (brutePlayer.getAttack() == 0) {
+            return true;
+        } else if (spellPlayer.getAttack() == 0) {
+            return true;
+        } else if (tinkPlayer.getAttack()==0) {
+            return true;
+        } else if (cragPlayer.getAttack()==0) {
+            return true;
+        } else if (mindPlayer.getAttack() == 0) {
+            return true;
+        } else if (scoundrelPlayer.getAttack() == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public static void playGloomhaven() {
+        System.out.println("This is a console-based version of Gloomhaven.");
+        System.out.println("Enter user name: ");
+        Scanner scan = new Scanner(System.in); // Create a Scanner object
+        String userName = scan.nextLine();
+        System.out.println("Welcome to Gloomhaven " + userName + "!");
+        String classChoice = chooseClass();
+        Brute brutePlayer = new Brute(userName, 18, 1, 5, 10, 1, 1, 1, new BruteDeck(), p1modDeck);
+        Spellweaver spellPlayer = new Spellweaver(userName, 12, 1, 5, 10, 1, 1, 1, new SpellweaverDeck(), p1modDeck);
+        Tinkerer tinkPlayer = new Tinkerer(userName, 13, 1, 5, 10, 1, 1, 1, new TinkererDeck(), p1modDeck);
+        Cragheart cragPlayer = new Cragheart(userName, 16, 1, 5, 10, 1, 1, 1, new CragheartDeck(), p1modDeck);
+        Mindthief mindPlayer = new Mindthief(userName, 14, 1, 5, 10, 1, 1, 1, new MindthiefDeck(), p1modDeck);
+        Scoundrel scoundrelPlayer = new Scoundrel(userName, 13, 1, 5, 10, 1, 1, 1, new ScoundrelDeck(), p1modDeck);
+        Undead undead1 = new Undead("UNDEAD1", 8, 2, 2, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
+        Undead undead2 = new Undead("UNDEAD2", 8, 3, 3, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
+        List<List<String>> board = new ArrayList<List<String>>();
+        Board.createBoard(board);
+        printMap(board,classChoice,brutePlayer,spellPlayer,tinkPlayer,cragPlayer,mindPlayer,scoundrelPlayer);
 
         int roundCounter = 1;
         AbilityCard undeadStats = undeadDeck.enemyDraw();
@@ -103,67 +139,28 @@ public class Game {
 
         String userAnswer = "0";
         while (!(userAnswer.equals("Q"))) {
-
-            System.out.println("Menu Options:");
-            System.out.println("Enter 'A' to attack enemy.");
-            System.out.println("Enter 'M' to move your player.");
-            System.out.println("Enter 'C' to choose card");
-            System.out.println("Enter 'Q' to quit.");
-            userAnswer = scan.nextLine();
-            userAnswer = userAnswer.toUpperCase();
+            userAnswer = printMenuOptions(userAnswer);
             switch (userAnswer) {
                 case ("A"):
-                    String Zero = "0";
-                    if (Zero.equals(String.valueOf(brutePlayer.getAttack()))) {
-                        System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
-                        break;
-                    } else if (Zero.equals(String.valueOf(spellPlayer.getAttack()))) {
-                        System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
-                        break;
-                    } else if (Zero.equals(String.valueOf(tinkPlayer.getAttack()))) {
-                        System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
-                        break;
-                    } else if (Zero.equals(String.valueOf(cragPlayer.getAttack()))) {
-                        System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
-                        break;
 
-                    } else if (Zero.equals(String.valueOf(mindPlayer.getAttack()))) {
-                        System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
-                        break;
-
-                    } else if (Zero.equals(String.valueOf(scoundrelPlayer.getAttack()))) {
+                    if((attackIsZero(brutePlayer,spellPlayer,tinkPlayer,cragPlayer,mindPlayer,scoundrelPlayer)) == true) {
                         System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
                         break;
                     }
 
-                    System.out.println(board.toString().replace(",", "")  //remove the commas
-                            .replace("[", "")  //remove the right bracket
-                            .replace("]", "")  //remove the left bracket
-                            .trim());
-                    if (classChoice.equals("1")) {
-                        System.out.println(brutePlayer.toString());
-                    } else if (classChoice.equals("2")) {
-                        System.out.println(spellPlayer.toString());
-
-                    } else if (classChoice.equals("3")) {
-                        System.out.println(tinkPlayer.toString());
-
-                    } else if (classChoice.equals("4")) {
-                        System.out.println(cragPlayer.toString());
-
-                    } else if (classChoice.equals("5")) {
-                        System.out.println(mindPlayer.toString());
-
-                    } else if (classChoice.equals("6")) {
-                        System.out.println(scoundrelPlayer.toString());
-
-                    }
+                    printMap(board,classChoice,brutePlayer,spellPlayer,tinkPlayer,cragPlayer,mindPlayer,scoundrelPlayer);
                     System.out.println(undead1.toString());
                     System.out.println(undead2.toString());
+
                     System.out.println("Enter location of enemy being attacked: ");
                     userAnswer = scan.nextLine();
                     userAnswer = userAnswer.toUpperCase();
                     String[] enemyCord = userAnswer.split("[,]", 0);
+                    if((enemyCord[0].equals(String.valueOf(undead1.getXPos()))) && (enemyCord[1].equals(String.valueOf(undead1.getYPos())))){
+                        System.out.println("UNDEAD1 SUCCESSFULLY ATTACKED ");
+                    } else if((enemyCord[0].equals(String.valueOf(undead2.getXPos()))) && (enemyCord[1].equals(String.valueOf(undead2.getYPos())))){
+                        System.out.println("UNDEAD2 SUCCESSFULLY ATTACKED ");
+                    }
 
                     if (String.valueOf(undead1.getXPos()).equals(enemyCord[0]) && String.valueOf(undead1.getYPos()).equals(enemyCord[1])) {
                         int attackVal = 0;
@@ -247,7 +244,7 @@ public class Game {
                     break;
 
                 case ("M"):
-                    Zero = "0";
+                    String Zero = "0";
 
                     if (Zero.equals(String.valueOf(brutePlayer.getMove()))) {
                         System.out.println("\nYour movement is 0, choose a new card to get new movement value.");
@@ -271,28 +268,7 @@ public class Game {
                         break;
                     }
 
-                    System.out.println(board.toString().replace(",", "")  //remove the commas
-                            .replace("[", "")  //remove the right bracket
-                            .replace("]", "")  //remove the left bracket
-                            .trim());
-                    if (classChoice.equals("1")) {
-                        System.out.println(brutePlayer.toString());
-                    } else if (classChoice.equals("2")) {
-                        System.out.println(spellPlayer.toString());
-
-                    } else if (classChoice.equals("3")) {
-                        System.out.println(tinkPlayer.toString());
-
-                    } else if (classChoice.equals("4")) {
-                        System.out.println(cragPlayer.toString());
-
-                    } else if (classChoice.equals("5")) {
-                        System.out.println(mindPlayer.toString());
-
-                    } else if (classChoice.equals("6")) {
-                        System.out.println(scoundrelPlayer.toString());
-
-                    }
+                    printMap(board,classChoice,brutePlayer,spellPlayer,tinkPlayer,cragPlayer,mindPlayer,scoundrelPlayer);
                     System.out.println(undead1.toString());
                     System.out.println(undead2.toString());
 

@@ -126,5 +126,36 @@ public class Board {
         map.get(y).set(x, (new Hexagon(Symbol.HEXAGON) + ""));
     }
 
+    public static void updateEnemyLocation(List<List<String>> map, int x, int y) {
+        Integer currentXCord = -1;
+        Integer xCord = x;
+        Integer yCord = y;
+        Scanner scan = new Scanner(System.in); // Create a Scanner object
+        //System.out.println(map.get(yCord).get(xCord));
+        if (map.get(yCord).get(xCord).equals(BLANK_HEX + "")) {
+
+            for (int i = 0; i < map.size(); i++) {
+                currentXCord = map.get(i).indexOf(new Hexagon(Symbol.UNDEAD) + "");
+                if (!(currentXCord.equals(-1))) {
+                    map.get(i).set(currentXCord, BLANK_HEX + "");
+                    i = map.size();
+                }
+            }
+            map.get(yCord).set(xCord, (new Hexagon(Symbol.UNDEAD) + ""));
+        } else if (map.get(yCord).get(xCord).equals(BLANK_HEX + "")) {
+
+            for (int i = 0; i < map.size(); i++) {
+                currentXCord = map.get(i).indexOf(new Hexagon(Symbol.UNDEAD) + "");
+                if (!(currentXCord.equals(-1))) {
+                    map.get(i).set(currentXCord, BLANK_HEX + "");
+                    i = map.size();
+                }
+            }
+            map.get(yCord).set(xCord, (new Hexagon(Symbol.UNDEAD) + ""));
+        } else {
+            System.out.println("Cannot move there, please choose an empty space.");
+        }
+    }
+
 
 }
