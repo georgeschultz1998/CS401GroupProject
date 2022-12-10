@@ -105,7 +105,7 @@ public class Game {
         System.out.println("Enter user name: ");
         Scanner scan = new Scanner(System.in); // Create a Scanner object
         String userName = scan.nextLine();
-        System.out.println("Welcome to Gloomhaven " + userName + "!");
+        System.out.println("Welcome to Gloomhaven, " + userName + "!");
         String classChoice = chooseClass();
         Brute brutePlayer = new Brute(userName, 18, 1, 5, 10, 1, 1, 1, new BruteDeck(), p1modDeck);
         Spellweaver spellPlayer = new Spellweaver(userName, 12, 1, 5, 10, 1, 1, 1, new SpellweaverDeck(), p1modDeck);
@@ -165,27 +165,58 @@ public class Game {
                     if (String.valueOf(undead1.getXPos()).equals(enemyCord[0]) && String.valueOf(undead1.getYPos()).equals(enemyCord[1])) {
                         int attackVal = 0;
                         int modifiedAttack = 0;
+                        int currentRange = 0;
                         if (classChoice.equals("1")) {
+                            currentRange = brutePlayer.getRange();
+                            if (brutePlayer.calcRange(brutePlayer.getXPos(), brutePlayer.getYPos(), undead1.getXPos(), undead1.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            }
                             attackVal = brutePlayer.getAttack();
                             modifiedAttack = p1modDeck.drawCard(attackVal);
                             brutePlayer.setAttack(0);
                         } else if (classChoice.equals("2")) {
+                            currentRange = spellPlayer.getRange();
+                            if (spellPlayer.calcRange(spellPlayer.getXPos(), spellPlayer.getYPos(), undead1.getXPos(), undead1.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            }
                             attackVal = spellPlayer.getAttack();
-                            spellPlayer.setAttack(0);
                             modifiedAttack = p1modDeck.drawCard(attackVal);
+                            spellPlayer.setAttack(0);
                         } else if (classChoice.equals("3")) {
+                            currentRange = tinkPlayer.getRange();
+                            if (tinkPlayer.calcRange(tinkPlayer.getXPos(), tinkPlayer.getYPos(), undead1.getXPos(), undead1.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            }
                             attackVal = tinkPlayer.getAttack();
                             modifiedAttack = p1modDeck.drawCard(attackVal);
                             tinkPlayer.setAttack(0);
                         } else if (classChoice.equals("4")) {
+                            currentRange = cragPlayer.getRange();
+                            if (cragPlayer.calcRange(cragPlayer.getXPos(), cragPlayer.getYPos(), undead1.getXPos(), undead1.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            }
                             attackVal = cragPlayer.getAttack();
                             modifiedAttack = p1modDeck.drawCard(attackVal);
                             cragPlayer.setAttack(0);
                         } else if (classChoice.equals("5")) {
+                            currentRange = mindPlayer.getRange();
+                            if (mindPlayer.calcRange(mindPlayer.getXPos(), mindPlayer.getYPos(), undead1.getXPos(), undead1.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            }
                             attackVal = mindPlayer.getAttack();
                             modifiedAttack = p1modDeck.drawCard(attackVal);
                             mindPlayer.setAttack(0);
                         } else if (classChoice.equals("6")) {
+                            currentRange = scoundrelPlayer.getRange();
+                            if (scoundrelPlayer.calcRange(scoundrelPlayer.getXPos(), scoundrelPlayer.getYPos(), undead1.getXPos(), undead1.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            }
                             attackVal = scoundrelPlayer.getAttack();
                             modifiedAttack = p1modDeck.drawCard(attackVal);
                             scoundrelPlayer.setAttack(0);
@@ -200,35 +231,68 @@ public class Game {
                     } else if (String.valueOf(undead2.getXPos()).equals(enemyCord[0]) && String.valueOf(undead2.getYPos()).equals(enemyCord[1])) {
                         int attackVal = 0;
                         int modifiedAttack = 0;
+                        int currentRange = 0;
                         if (classChoice.equals("1")) {
-                            attackVal = brutePlayer.getAttack();
-                            modifiedAttack = p1modDeck.drawCard(attackVal);
-                            brutePlayer.setAttack(0);
+                            currentRange = brutePlayer.getRange();
+                            if (brutePlayer.calcRange(brutePlayer.getXPos(), brutePlayer.getYPos(), undead2.getXPos(), undead2.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            } else {
+                                attackVal = brutePlayer.getAttack();
+                                modifiedAttack = p1modDeck.drawCard(attackVal);
+                                brutePlayer.setAttack(0);
+                            }
                         } else if (classChoice.equals("2")) {
-                            attackVal = spellPlayer.getAttack();
-                            modifiedAttack = p1modDeck.drawCard(attackVal);
-                            spellPlayer.setAttack(0);
-
+                            currentRange = spellPlayer.getRange();
+                            if (spellPlayer.calcRange(spellPlayer.getXPos(), spellPlayer.getYPos(), undead2.getXPos(), undead2.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            } else {
+                                attackVal = spellPlayer.getAttack();
+                                spellPlayer.setAttack(0);
+                                modifiedAttack = p1modDeck.drawCard(attackVal);
+                                spellPlayer.setAttack(0);
+                            }
                         } else if (classChoice.equals("3")) {
-                            attackVal = tinkPlayer.getAttack();
-                            modifiedAttack = p1modDeck.drawCard(attackVal);
-                            tinkPlayer.setAttack(0);
-
+                            currentRange = tinkPlayer.getRange();
+                            if (tinkPlayer.calcRange(tinkPlayer.getXPos(), tinkPlayer.getYPos(), undead2.getXPos(), undead2.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            } else {
+                                attackVal = tinkPlayer.getAttack();
+                                modifiedAttack = p1modDeck.drawCard(attackVal);
+                                tinkPlayer.setAttack(0);
+                            }
                         } else if (classChoice.equals("4")) {
-                            attackVal = cragPlayer.getAttack();
-                            modifiedAttack = p1modDeck.drawCard(attackVal);
-                            cragPlayer.setAttack(0);
-
+                            currentRange = cragPlayer.getRange();
+                            if (cragPlayer.calcRange(cragPlayer.getXPos(), cragPlayer.getYPos(), undead2.getXPos(), undead2.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            } else {
+                                attackVal = cragPlayer.getAttack();
+                                modifiedAttack = p1modDeck.drawCard(attackVal);
+                                cragPlayer.setAttack(0);
+                            }
                         } else if (classChoice.equals("5")) {
-                            attackVal = mindPlayer.getAttack();
-                            modifiedAttack = p1modDeck.drawCard(attackVal);
-                            mindPlayer.setAttack(0);
-
+                            currentRange = mindPlayer.getRange();
+                            if (mindPlayer.calcRange(mindPlayer.getXPos(), mindPlayer.getYPos(), undead2.getXPos(), undead2.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            } else {
+                                attackVal = mindPlayer.getAttack();
+                                modifiedAttack = p1modDeck.drawCard(attackVal);
+                                mindPlayer.setAttack(0);
+                            }
                         } else if (classChoice.equals("6")) {
-                            attackVal = scoundrelPlayer.getAttack();
-                            modifiedAttack = p1modDeck.drawCard(attackVal);
-                            scoundrelPlayer.setAttack(0);
-
+                            currentRange = scoundrelPlayer.getRange();
+                            if (scoundrelPlayer.calcRange(scoundrelPlayer.getXPos(), scoundrelPlayer.getYPos(), undead2.getXPos(), undead2.getYPos(), currentRange) == false) {
+                                System.out.println("Enemy is out of range.");
+                                break;
+                            } else {
+                                attackVal = scoundrelPlayer.getAttack();
+                                modifiedAttack = p1modDeck.drawCard(attackVal);
+                                scoundrelPlayer.setAttack(0);
+                            }
                         }
                         int currentHP = undead2.getHP();
                         System.out.println(p1modDeck.damageText(modifiedAttack));
@@ -236,8 +300,6 @@ public class Game {
                         if (undead2.getHP() <= 0) {
                             Board.removeEnemy(board, undead2.getXPos(), undead2.getYPos());
                         }
-                    } else {
-                        System.out.println("No enemies at the location you entered.");
                     }
                     hasAttacked = true;
 
@@ -538,7 +600,331 @@ public class Game {
                     hasAttacked = false;
                     hasMoved = false;
                     // put enemy doing things here
+                    int currentRange = undead1.getRange();
+                    int monAttack = 0;
+                    int modifiedAttack = 0;
+                    if (undead1.getHP() > 0) {
+                        int x = 0;
+                        int y = 0;
+                        if (classChoice.equals("1")) {
+                            if (undead1.calcRange(undead1.getXPos(), undead1.getYPos(), brutePlayer.getXPos(), brutePlayer.getYPos(), undead1.getRange()) == false) {
+                                if (undead1.getXPos() - brutePlayer.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() - 1);
+                                    x=undead1.getXPos() - 1;
+                                }
+                                if (undead1.getYPos() - brutePlayer.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() -1);
+                                    y=undead1.getYPos() - 1;
+                                }
+                                if (brutePlayer.getXPos() - undead1.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() + 1);
+                                    x=undead1.getXPos() + 1;
+                                }
+                                if (brutePlayer.getYPos() - undead1.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() + 1);
+                                    y=undead1.getYPos() - 1;
+                                }
+                                Board.updateEnemyLocation(board,x,y);
+                            }
+                            if (Math.abs(undead1.getXPos() - brutePlayer.getXPos()) > undead1.getRange() && Math.abs(undead1.getYPos() - brutePlayer.getYPos()) > undead1.getRange()) {
+                                System.out.println("1 Do nothing");
+                            } else {
+                                monAttack = undead1.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = brutePlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                brutePlayer.setHP(currentHP - modifiedAttack);
+                            }
 
+                        } else if (classChoice.equals("2")) {
+                            if (undead1.calcRange(undead1.getXPos(), undead1.getYPos(), spellPlayer.getXPos(), spellPlayer.getYPos(), undead1.getRange()) == false) {
+                                if (undead1.getXPos() - spellPlayer.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() - 1);
+                                }
+                                if (undead1.getYPos() - spellPlayer.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() -1);
+                                }
+                                if (spellPlayer.getXPos() - undead1.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() + 1);
+                                }
+                                if (spellPlayer.getYPos() - undead1.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() + 1);
+                                }
+                            }
+                            if (Math.abs(undead1.getXPos() - spellPlayer.getXPos()) > undead1.getRange() && Math.abs(undead1.getYPos() - spellPlayer.getYPos()) > undead1.getRange()) {
+                                System.out.println("1 Do nothing");
+                            } else {
+                                monAttack = undead1.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = spellPlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                spellPlayer.setHP(currentHP - modifiedAttack);
+                            }
+
+
+                        } else if (classChoice.equals("3")) {
+                            if (undead1.calcRange(undead1.getXPos(), undead1.getYPos(), tinkPlayer.getXPos(), tinkPlayer.getYPos(), undead1.getRange()) == false) {
+                                if (undead1.getXPos() - tinkPlayer.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() - 1);
+                                }
+                                if (undead1.getYPos() - tinkPlayer.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() -1);
+                                }
+                                if (tinkPlayer.getXPos() - undead1.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() + 1);
+                                }
+                                if (tinkPlayer.getYPos() - undead1.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() + 1);
+                                }
+                            }
+                            if (Math.abs(undead1.getXPos() - tinkPlayer.getXPos()) > undead1.getRange() && Math.abs(undead1.getYPos() - tinkPlayer.getYPos()) > undead1.getRange()) {
+                                System.out.println("1 Do nothing");
+                            } else {
+                                monAttack = undead1.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = tinkPlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                tinkPlayer.setHP(currentHP - modifiedAttack);
+                            }
+
+
+                        } else if (classChoice.equals("4")) {
+                            if (undead1.calcRange(undead1.getXPos(), undead1.getYPos(), cragPlayer.getXPos(), cragPlayer.getYPos(), undead1.getRange()) == false) {
+                                if (undead1.getXPos() - cragPlayer.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() - 1);
+                                }
+                                if (undead1.getYPos() - cragPlayer.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() -1);
+                                }
+                                if (cragPlayer.getXPos() - undead1.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() + 1);
+                                }
+                                if (cragPlayer.getYPos() - undead1.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() + 1);
+                                }
+                            }
+                            if (Math.abs(undead1.getXPos() - cragPlayer.getXPos()) > undead1.getRange() && Math.abs(undead1.getYPos() - cragPlayer.getYPos()) > undead1.getRange()) {
+                                System.out.println("1 Do nothing");
+                            } else {
+                                monAttack = undead1.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = cragPlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                cragPlayer.setHP(currentHP - modifiedAttack);
+                            }
+
+
+                        } else if (classChoice.equals("5")) {
+                            if (undead1.calcRange(undead1.getXPos(), undead1.getYPos(), mindPlayer.getXPos(), mindPlayer.getYPos(), undead1.getRange()) == false) {
+                                if (undead1.getXPos() - mindPlayer.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() - 1);
+                                }
+                                if (undead1.getYPos() - mindPlayer.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() -1);
+                                }
+                                if (mindPlayer.getXPos() - undead1.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() + 1);
+                                }
+                                if (mindPlayer.getYPos() - undead1.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() + 1);
+                                }
+                            }
+                            if (Math.abs(undead1.getXPos() - mindPlayer.getXPos()) > undead1.getRange() && Math.abs(undead1.getYPos() - mindPlayer.getYPos()) > undead1.getRange()) {
+                                System.out.println("1 Do nothing");
+                            } else {
+                                monAttack = undead1.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = mindPlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                mindPlayer.setHP(currentHP - modifiedAttack);
+                            }
+
+
+                        } else if (classChoice.equals("6")) {
+                            if (undead1.calcRange(undead1.getXPos(), undead1.getYPos(), scoundrelPlayer.getXPos(), scoundrelPlayer.getYPos(), undead1.getRange()) == false) {
+                                if (undead1.getXPos() - scoundrelPlayer.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() - 1);
+                                }
+                                if (undead1.getYPos() - scoundrelPlayer.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() -1);
+                                }
+                                if (scoundrelPlayer.getXPos() - undead1.getXPos() > 1) {
+                                    undead1.setXPos(undead1.getXPos() + 1);
+                                }
+                                if (scoundrelPlayer.getYPos() - undead1.getYPos() > 1) {
+                                    undead1.setYPos(undead1.getYPos() + 1);
+                                }
+                            }
+                            if (Math.abs(undead1.getXPos() - scoundrelPlayer.getXPos()) > undead1.getRange() && Math.abs(undead1.getYPos() - scoundrelPlayer.getYPos()) > undead1.getRange()) {
+                                System.out.println("1 Do nothing");
+                            } else {
+                                monAttack = undead1.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = scoundrelPlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                scoundrelPlayer.setHP(currentHP - modifiedAttack);
+                            }
+                        }
+                    }
+                    //end undead1 attack
+
+                    if (undead2.getHP() > 0) {
+                        if (classChoice.equals("1")) {
+                            if (undead2.calcRange(undead2.getXPos(), undead2.getYPos(), brutePlayer.getXPos(), brutePlayer.getYPos(), undead2.getRange()) == false) {
+                                if (undead2.getXPos() - brutePlayer.getXPos() > 1) {
+                                    undead2.setXPos(undead2.getXPos() - 1);
+                                }
+                                if (undead2.getYPos() - brutePlayer.getYPos() > 1) {
+                                    undead2.setYPos(undead2.getYPos() -1);
+                                }
+                                if (brutePlayer.getXPos() - undead2.getXPos() > 1) {
+                                    undead2.setXPos(undead2.getXPos() + 1);
+                                }
+                                if (brutePlayer.getYPos() - undead1.getYPos() > 1) {
+                                    undead2.setYPos(undead2.getYPos() + 1);
+                                }
+                            }
+                            if (Math.abs(undead2.getXPos() - brutePlayer.getXPos()) > undead2.getRange() && Math.abs(undead2.getYPos() - brutePlayer.getYPos()) > undead2.getRange()) {
+                                System.out.println("2 Do nothing.");
+                            } else {
+                                monAttack = undead2.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = brutePlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                brutePlayer.setHP(currentHP - modifiedAttack);
+                            }
+
+                        } else if (classChoice.equals("2")) {
+                            if (undead2.calcRange(undead2.getXPos(), undead2.getYPos(), spellPlayer.getXPos(), spellPlayer.getYPos(), undead2.getRange()) == false) {
+                                if (undead2.getXPos() < spellPlayer.getXPos()) {
+                                    undead2.setXPos(undead2.getXPos() + 1);
+                                }
+                                if (undead2.getYPos() < spellPlayer.getYPos()) {
+                                    undead2.setYPos(undead2.getYPos() + 1);
+                                }
+                                if (undead2.getXPos() > spellPlayer.getXPos()) {
+                                    undead2.setXPos(undead2.getXPos() - 1);
+                                }
+                                if (undead2.getYPos() > spellPlayer.getYPos()) {
+                                    undead2.setYPos(undead2.getYPos() - 1);
+                                }
+                            }
+                            if (Math.abs(undead2.getXPos() - spellPlayer.getXPos()) > undead2.getRange() && Math.abs(undead2.getYPos() - spellPlayer.getYPos()) > undead2.getRange()) {
+                                System.out.println("2 Do nothing.");
+                            } else {
+                                monAttack = undead1.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = spellPlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                spellPlayer.setHP(currentHP - modifiedAttack);
+                            }
+
+
+                        } else if (classChoice.equals("3")) {
+                            if (undead2.calcRange(undead2.getXPos(), undead2.getYPos(), tinkPlayer.getXPos(), tinkPlayer.getYPos(), undead2.getRange()) == false) {
+                                if (undead2.getXPos() < tinkPlayer.getXPos()) {
+                                    undead2.setXPos(undead2.getXPos() + 1);
+                                }
+                                if (undead2.getYPos() < tinkPlayer.getYPos()) {
+                                    undead2.setYPos(undead2.getYPos() + 1);
+                                }
+                                if (undead2.getXPos() > tinkPlayer.getXPos()) {
+                                    undead2.setXPos(undead2.getXPos() - 1);
+                                }
+                                if (undead2.getYPos() > tinkPlayer.getYPos()) {
+                                    undead2.setYPos(undead2.getYPos() - 1);
+                                }
+                            }
+                            if (Math.abs(undead2.getXPos() - tinkPlayer.getXPos()) > undead2.getRange() && Math.abs(undead2.getYPos() - tinkPlayer.getYPos()) > undead2.getRange()) {
+                                System.out.println("2 Do nothing.");
+                            } else {
+                                monAttack = undead2.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = tinkPlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                tinkPlayer.setHP(currentHP - modifiedAttack);
+                            }
+
+
+                        } else if (classChoice.equals("4")) {
+                            if (undead2.calcRange(undead1.getXPos(), undead2.getYPos(), cragPlayer.getXPos(), cragPlayer.getYPos(), undead2.getRange()) == false) {
+                                if (undead2.getXPos() < cragPlayer.getXPos()) {
+                                    undead2.setXPos(undead2.getXPos() + 1);
+                                }
+                                if (undead2.getYPos() < cragPlayer.getYPos()) {
+                                    undead2.setYPos(undead2.getYPos() + 1);
+                                }
+                                if (undead2.getXPos() > cragPlayer.getXPos()) {
+                                    undead2.setXPos(undead2.getXPos() - 1);
+                                }
+                                if (undead2.getYPos() > cragPlayer.getYPos()) {
+                                    undead2.setYPos(undead2.getYPos() - 1);
+                                }
+                            }
+                            if (Math.abs(undead2.getXPos() - cragPlayer.getXPos()) > undead2.getRange() && Math.abs(undead2.getYPos() - cragPlayer.getYPos()) > undead2.getRange()) {
+                                System.out.println("2 Do nothing.");
+                            } else {
+                                monAttack = undead2.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = cragPlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                cragPlayer.setHP(currentHP - modifiedAttack);
+                            }
+
+
+                        } else if (classChoice.equals("5")) {
+                            if (undead2.calcRange(undead2.getXPos(), undead2.getYPos(), mindPlayer.getXPos(), mindPlayer.getYPos(), undead2.getRange()) == false) {
+                                if (undead2.getXPos() < mindPlayer.getXPos()) {
+                                    undead2.setXPos(undead2.getXPos() + 1);
+                                }
+                                if (undead2.getYPos() < mindPlayer.getYPos()) {
+                                    undead2.setYPos(undead2.getYPos() + 1);
+                                }
+                                if (undead2.getXPos() > mindPlayer.getXPos()) {
+                                    undead2.setXPos(undead2.getXPos() - 1);
+                                }
+                                if (undead2.getYPos() > mindPlayer.getYPos()) {
+                                    undead2.setYPos(undead2.getYPos() - 1);
+                                }
+                            }
+                            if (Math.abs(undead2.getXPos() - mindPlayer.getXPos()) > undead2.getRange() && Math.abs(undead2.getYPos() - mindPlayer.getYPos()) > undead2.getRange()) {
+                                System.out.println("2 Do nothing.");
+                            } else {
+                                monAttack = undead2.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = mindPlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                mindPlayer.setHP(currentHP - modifiedAttack);
+                            }
+
+
+                        } else if (classChoice.equals("6")) {
+                            if (undead1.calcRange(undead2.getXPos(), undead2.getYPos(), scoundrelPlayer.getXPos(), scoundrelPlayer.getYPos(), undead2.getRange()) == false) {
+                                if (undead2.getXPos() < scoundrelPlayer.getXPos()) {
+                                    undead2.setXPos(undead2.getXPos() + 1);
+                                }
+                                if (undead2.getYPos() < scoundrelPlayer.getYPos()) {
+                                    undead2.setYPos(undead2.getYPos() + 1);
+                                }
+                                if (undead2.getXPos() > scoundrelPlayer.getXPos()) {
+                                    undead2.setXPos(undead2.getXPos() - 1);
+                                }
+                                if (undead2.getYPos() > scoundrelPlayer.getYPos()) {
+                                    undead2.setYPos(undead2.getYPos() - 1);
+                                }
+                            }
+                            if (Math.abs(undead2.getXPos() - scoundrelPlayer.getXPos()) > undead2.getRange() && Math.abs(undead2.getYPos() - scoundrelPlayer.getYPos()) > undead2.getRange()) {
+                                System.out.println("2 Do nothing.");
+                            } else {
+                                monAttack = undead2.getAttack();
+                                modifiedAttack = monsterDeck.drawCard(monAttack);
+                                int currentHP = scoundrelPlayer.getHP();
+                                System.out.println(monsterDeck.enemyDamageText(modifiedAttack));
+                                scoundrelPlayer.setHP(currentHP - modifiedAttack);
+                            }
+
+                        }
+                    }
                     //draw new card for undead
                     undeadStats = undeadDeck.enemyDraw();
                     undeadAttack = undeadStats.getAttack();

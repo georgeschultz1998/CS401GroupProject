@@ -69,6 +69,11 @@ public class Deck {
         return str.toString();
     }
 
+    public String enemyDamageText(int totalDamage) {
+        StringBuilder str = new StringBuilder("Enemy deals " + totalDamage + " damage.");
+        return str.toString();
+    }
+
     public void addCard(int value) {
         //maybe add Bless/Curse later, as +/- 4 to distinguish from regular cards
         starterDeck.add(value);

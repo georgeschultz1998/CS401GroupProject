@@ -13,12 +13,12 @@ public class UndeadDeck {
     ArrayList<AbilityCard> discard = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
 
-    AbilityCard card0 = new AbilityCard(1, 1, 2);
-    AbilityCard card1 = new AbilityCard(3, 1, 1);
-    AbilityCard card2 = new AbilityCard(3, 1, 2);
-    AbilityCard card3 = new AbilityCard(2, 2, 0);
-    AbilityCard card4 = new AbilityCard(3, 2, 0);
-    AbilityCard card5 = new AbilityCard(4, 1, 1);
+    AbilityCard card0 = new AbilityCard(1, 1, 1);
+    AbilityCard card1 = new AbilityCard(2, 1, 1);
+    AbilityCard card2 = new AbilityCard(2, 1, 1);
+    AbilityCard card3 = new AbilityCard(2, 1, 0);
+    AbilityCard card4 = new AbilityCard(3, 1, 0);
+    AbilityCard card5 = new AbilityCard(3, 1, 1);
 
 
     public UndeadDeck() {

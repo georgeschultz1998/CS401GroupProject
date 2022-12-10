@@ -96,6 +96,17 @@ abstract public class PlayableCharacter implements CharacterInterface {
         yPos += deltaY;
     }
 
+    public Boolean calcRange(int x1, int y1, int x2, int y2, int range) {
+        int maxX = 0;
+        int maxY = 0;
+        maxX = Math.abs(x1-x2);
+        maxY = Math.abs(y1-y2);
+        if (maxX <= range && maxY <= range) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder(this.name.toUpperCase());
