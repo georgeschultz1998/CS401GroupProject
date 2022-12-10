@@ -83,6 +83,7 @@ public class Game {
 
         }
 
+        int roundCounter = 1;
         AbilityCard undeadStats = undeadDeck.enemyDraw();
         int undeadAttack = undeadStats.getAttack();
         int undeadMove = undeadStats.getMove();
@@ -95,6 +96,8 @@ public class Game {
         undead2.setRange(undeadRange);
         System.out.println(undead1.toString());
         System.out.println(undead2.toString());
+        System.out.println(String.format("Round: %d, begin.", roundCounter));
+
         Boolean hasAttacked = false;
         Boolean hasMoved = false;
 
@@ -558,17 +561,23 @@ public class Game {
                 {
                     hasAttacked = false;
                     hasMoved = false;
-                    AbilityCard newCard = undeadDeck.enemyDraw();
-                    newCard = undeadDeck.enemyDraw();
-                    undeadAttack = newCard.getAttack();
-                    undeadMove = newCard.getMove();
-                    undeadRange = newCard.getRange();
+                    // put enemy doing things here
+
+                    //draw new card for undead
+                    undeadStats = undeadDeck.enemyDraw();
+                    undeadAttack = undeadStats.getAttack();
+                    undeadMove = undeadStats.getMove();
+                    undeadRange = undeadStats.getRange();
                     undead1.setAttack(undeadAttack);
                     undead1.setMove(undeadMove);
                     undead1.setRange(undeadRange);
                     undead2.setAttack(undeadAttack);
                     undead2.setMove(undeadMove);
                     undead2.setRange(undeadRange);
+                    roundCounter++;
+                    System.out.println(String.format("Round: %d, begin.", roundCounter));
+
+                    //print out next round stats for undead
                     System.out.println(undead1.toString());
                     System.out.println(undead2.toString());
                 }
