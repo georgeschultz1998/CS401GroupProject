@@ -48,14 +48,14 @@ public class Game {
         String userName = scan.nextLine();
         System.out.println("Welcome to Gloomhaven " + userName + "!");
         String classChoice = chooseClass();
-        Brute brutePlayer = new Brute(userName, 20, 1, 5, 10, 1, 1, 1, new BruteDeck(), p1modDeck);
-        Spellweaver spellPlayer = new Spellweaver(userName, 20, 1, 5, 10, 1, 1, 1, new SpellweaverDeck(), p1modDeck);
-        Tinkerer tinkPlayer = new Tinkerer(userName, 20, 1, 5, 10, 1, 1, 1, new TinkererDeck(), p1modDeck);
-        Cragheart cragPlayer = new Cragheart(userName, 20, 1, 5, 10, 1, 1, 1, new CragheartDeck(), p1modDeck);
-        Mindthief mindPlayer = new Mindthief(userName, 20, 1, 5, 10, 1, 1, 1, new MindthiefDeck(), p1modDeck);
-        Scoundrel scoundrelPlayer = new Scoundrel(userName, 20, 1, 5, 10, 1, 1, 1, new ScoundrelDeck(), p1modDeck);
-        Undead undead1 = new Undead("UNDEAD1", 10, 2, 2, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
-        Undead undead2 = new Undead("UNDEAD2", 10, 3, 3, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
+        Brute brutePlayer = new Brute(userName, 18, 1, 5, 10, 1, 1, 1, new BruteDeck(), p1modDeck);
+        Spellweaver spellPlayer = new Spellweaver(userName, 12, 1, 5, 10, 1, 1, 1, new SpellweaverDeck(), p1modDeck);
+        Tinkerer tinkPlayer = new Tinkerer(userName, 13, 1, 5, 10, 1, 1, 1, new TinkererDeck(), p1modDeck);
+        Cragheart cragPlayer = new Cragheart(userName, 16, 1, 5, 10, 1, 1, 1, new CragheartDeck(), p1modDeck);
+        Mindthief mindPlayer = new Mindthief(userName, 14, 1, 5, 10, 1, 1, 1, new MindthiefDeck(), p1modDeck);
+        Scoundrel scoundrelPlayer = new Scoundrel(userName, 13, 1, 5, 10, 1, 1, 1, new ScoundrelDeck(), p1modDeck);
+        Undead undead1 = new Undead("UNDEAD1", 8, 2, 2, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
+        Undead undead2 = new Undead("UNDEAD2", 8, 3, 3, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
 
 
         List<List<String>> board = new ArrayList<List<String>>();
@@ -82,11 +82,25 @@ public class Game {
             System.out.println(scoundrelPlayer.toString());
 
         }
+
+        AbilityCard undeadStats = undeadDeck.enemyDraw();
+        int undeadAttack = undeadStats.getAttack();
+        int undeadMove = undeadStats.getMove();
+        int undeadRange = undeadStats.getRange();
+        undead1.setAttack(undeadAttack);
+        undead1.setMove(undeadMove);
+        undead1.setRange(undeadRange);
+        undead2.setAttack(undeadAttack);
+        undead2.setMove(undeadMove);
+        undead2.setRange(undeadRange);
         System.out.println(undead1.toString());
         System.out.println(undead2.toString());
+        Boolean hasAttacked = false;
+        Boolean hasMoved = false;
 
         String userAnswer = "0";
         while (!(userAnswer.equals("Q"))) {
+
             System.out.println("Menu Options:");
             System.out.println("Enter 'A' to attack enemy.");
             System.out.println("Enter 'M' to move your player.");
@@ -147,7 +161,6 @@ public class Game {
                     userAnswer = scan.nextLine();
                     userAnswer = userAnswer.toUpperCase();
                     String[] enemyCord = userAnswer.split("[,]", 0);
-
 
                     if (String.valueOf(undead1.getXPos()).equals(enemyCord[0]) && String.valueOf(undead1.getYPos()).equals(enemyCord[1])) {
                         int attackVal = 0;
@@ -226,6 +239,7 @@ public class Game {
                     } else {
                         System.out.println("No enemies at the location you entered.");
                     }
+                    hasAttacked = true;
 
                     break;
 
@@ -408,8 +422,10 @@ public class Game {
                     }
 
                     Board.updateLocations(board, mapCord);
+
                     System.out.println("");
                     System.out.println("User has been moved to: " + userAnswer);
+                    hasMoved = true;
                     System.out.println(board.toString().replace(",", "")  //remove the commas
                             .replace("[", "")  //remove the right bracket
                             .replace("]", "")  //remove the left bracket
@@ -417,11 +433,14 @@ public class Game {
 
                     if (classChoice.equals("1")) {
                         brutePlayer.setMove(0);
+
                     } else if (classChoice.equals("2")) {
                         spellPlayer.setMove(0);
 
+
                     } else if (classChoice.equals("3")) {
                         tinkPlayer.setMove(0);
+
 
                     } else if (classChoice.equals("4")) {
                         cragPlayer.setMove(0);
@@ -520,7 +539,7 @@ public class Game {
                         mindPlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
                         mindPlayer.setAttack(attack);
                         mindPlayer.setMove(move);
-                        tinkPlayer.setRange(range);
+                        mindPlayer.setRange(range);
 
                     } else if (classChoice.equals("6")) {
                         attack = scoundrelPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
@@ -533,8 +552,28 @@ public class Game {
                     }
                     System.out.println("Your attack will be set to: " + attack + ", Your range will be set to: " + range + ", and your move will be set to: " + move);
                     break;
-            }
+
+                }
+                if (hasAttacked == true && hasMoved == true)
+                {
+                    hasAttacked = false;
+                    hasMoved = false;
+                    AbilityCard newCard = undeadDeck.enemyDraw();
+                    newCard = undeadDeck.enemyDraw();
+                    undeadAttack = newCard.getAttack();
+                    undeadMove = newCard.getMove();
+                    undeadRange = newCard.getRange();
+                    undead1.setAttack(undeadAttack);
+                    undead1.setMove(undeadMove);
+                    undead1.setRange(undeadRange);
+                    undead2.setAttack(undeadAttack);
+                    undead2.setMove(undeadMove);
+                    undead2.setRange(undeadRange);
+                    System.out.println(undead1.toString());
+                    System.out.println(undead2.toString());
+                }
         }
+
     }
 
     private static String chooseClass() {

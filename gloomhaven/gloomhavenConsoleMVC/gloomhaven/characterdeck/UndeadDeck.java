@@ -16,9 +16,9 @@ public class UndeadDeck {
     AbilityCard card0 = new AbilityCard(1, 1, 2);
     AbilityCard card1 = new AbilityCard(3, 1, 1);
     AbilityCard card2 = new AbilityCard(3, 1, 2);
-    AbilityCard card3 = new AbilityCard(3, 1, 0);
+    AbilityCard card3 = new AbilityCard(2, 2, 0);
     AbilityCard card4 = new AbilityCard(3, 2, 0);
-    AbilityCard card5 = new AbilityCard(4, 2, 1);
+    AbilityCard card5 = new AbilityCard(4, 1, 1);
 
 
     public UndeadDeck() {
@@ -68,10 +68,13 @@ public class UndeadDeck {
         return deck.size();
     }
 
-    public void enemyDraw() {
+    public AbilityCard enemyDraw() {
+        AbilityCard current;
         Random r = new Random();
         int i = r.nextInt(deck.size());
-        removeCard(i);
+        current = deck.get(i);
+        return current;
+
     }
 
     /**
