@@ -31,23 +31,23 @@ public class Board {
         };
 
         String[] row2Array = {
-                "|Y1" + " ", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + " |\n"
+                "|Y1" + " ", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + "", "|\n"
         };
 
         String[] row3Array = {
-                "|Y2" + " ", BLANK_HEX + "", new Hexagon(Symbol.UNDEAD) + "", BLANK_HEX + "", BLANK_HEX + " |\n"
+                "|Y2" + " ", BLANK_HEX + "", new Hexagon(Symbol.UNDEAD) + "", BLANK_HEX + "", BLANK_HEX + "", "|\n"
         };
 
         String[] row4Array = {
-                "|Y3" + " ", BLANK_HEX + "", BLANK_HEX + "", new Hexagon(Symbol.UNDEAD) + "", BLANK_HEX + " |\n"
+                "|Y3" + " ", BLANK_HEX + "", BLANK_HEX + "", new Hexagon(Symbol.UNDEAD) + "", BLANK_HEX + "", "|\n"
         };
 
         String[] row5Array = {
-                "|Y4" + " ", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + " |\n"
+                "|Y4" + " ", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + "", "|\n"
         };
 
         String[] row6Array = {
-                "|Y5" + " ", new Hexagon(Symbol.USER) + "", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + " |\n", "------------------------\n"
+                "|Y5" + " ", new Hexagon(Symbol.USER) + "", BLANK_HEX + "", BLANK_HEX + "", BLANK_HEX + "", "|\n", "------------------------\n"
         };
 
         Collections.addAll(row1, row1Array);
@@ -98,6 +98,16 @@ public class Board {
         Scanner scan = new Scanner(System.in); // Create a Scanner object
         //System.out.println(map.get(yCord).get(xCord));
         if (map.get(yCord).get(xCord).equals(BLANK_HEX + "")) {
+
+            for (int i = 0; i < map.size(); i++) {
+                currentXCord = map.get(i).indexOf(new Hexagon(Symbol.USER) + "");
+                if (!(currentXCord.equals(-1))) {
+                    map.get(i).set(currentXCord, BLANK_HEX + "");
+                    i = map.size();
+                }
+            }
+            map.get(yCord).set(xCord, (new Hexagon(Symbol.USER) + ""));
+        } else if (map.get(yCord).get(xCord).equals(BLANK_HEX + "")) {
 
             for (int i = 0; i < map.size(); i++) {
                 currentXCord = map.get(i).indexOf(new Hexagon(Symbol.USER) + "");
