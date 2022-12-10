@@ -107,7 +107,19 @@ public class Board {
                 }
             }
             map.get(yCord).set(xCord, (new Hexagon(Symbol.USER) + ""));
-        } else {
+        } else if (map.get(yCord).get(xCord).equals(BLANK_HEX + " |\n")) {
+
+            for (int i = 0; i < map.size(); i++) {
+                currentXCord = map.get(i).indexOf(new Hexagon(Symbol.USER) + "");
+                if (!(currentXCord.equals(-1))) {
+                    map.get(i).set(currentXCord, BLANK_HEX + " |\n");
+                    i = map.size();
+                }
+            }
+            map.get(yCord).set(xCord, (new Hexagon(Symbol.USER) + ""));
+        }
+
+        else {
             System.out.println("Cannot move there, please choose an empty space.");
         }
     }
