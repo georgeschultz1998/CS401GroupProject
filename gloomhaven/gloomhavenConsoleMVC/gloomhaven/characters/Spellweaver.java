@@ -4,7 +4,6 @@ import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Deck;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BanditDeck;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BruteDeck;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.SpellweaverDeck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.TinkererDeck;
 
 /**
  * Gloomhaven character
@@ -12,11 +11,11 @@ import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.TinkererDeck;
  * @author Stefan Fuller
  */
 
-public class Tinkerer extends PlayableCharacter {
-    protected TinkererDeck deck;
+public class Spellweaver extends PlayableCharacter {
+    protected SpellweaverDeck deck;
     protected Deck modDeck;
 
-    public Tinkerer(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, TinkererDeck _deck, Deck _modDeck) {
+    public Spellweaver(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, SpellweaverDeck _deck, Deck _modDeck) {
         super(_name, _hp, _xPos, _yPos, _gold, _attack, _range, _move);
         deck = _deck;
         modDeck = _modDeck;
@@ -41,7 +40,7 @@ public class Tinkerer extends PlayableCharacter {
         deck.display();
     }
 
-    public TinkererDeck getDeck() {
+    public SpellweaverDeck getDeck() {
         return deck;
     }
 

@@ -2,6 +2,7 @@ package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
 
 /**
  * Hexagon on Gloomhaven board
+ *
  * @author Anthony Schultz
  */
 public class Hexagon {
@@ -9,6 +10,7 @@ public class Hexagon {
 
     /**
      * Initialize square
+     *
      * @param _value initial symbol of this square
      */
     public Hexagon(Symbol _value) {
@@ -19,6 +21,7 @@ public class Hexagon {
     /**
      * Get representation of one square for use
      * in displaying board
+     *
      * @return the representation
      */
     @Override

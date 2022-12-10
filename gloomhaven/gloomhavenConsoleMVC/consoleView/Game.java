@@ -1,7 +1,10 @@
 package gloomhaven.gloomhavenConsoleMVC.consoleView;
+
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Board;
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Deck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Player;
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.*;
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,16 +12,21 @@ import java.util.Scanner;
 
 /**
  * Heptalion main game class
+ *
  * @author David
  */
 public class Game {
     Board board;
-    Player[] player;
     static Deck deck;
     private Scanner stdin = new Scanner(System.in);
     static final int NUM_PLAYERS = 2;
     private static final int MAX_TRIES = 3;
     private static final String QUIT = "Q";
+    private static final Deck p1modDeck = new Deck();
+    private static final Deck p2modDeck = new Deck();
+    private static final Deck monsterDeck = new Deck();
+    private static final BanditDeck banditDeck = new BanditDeck();
+    private static final UndeadDeck undeadDeck = new UndeadDeck();
 
 
     // Return index of other player
@@ -32,17 +40,23 @@ public class Game {
      *
      * @return true if the player successfully makes a play, false if not
      */
+
     public static void playGloomhaven() {
-        Player player1 = new Player("Default", "Default", deck);
         System.out.println("This is a console-based version of Gloomhaven.");
         System.out.println("Enter user name: ");
         Scanner scan = new Scanner(System.in); // Create a Scanner object
         String userName = scan.nextLine();
-        player1.setName(userName);
         System.out.println("Welcome to Gloomhaven " + userName + "!");
-        chooseClass(player1);
-        gameIntroduction();
-        quest1Introduction();
+        String classChoice = chooseClass();
+        Brute brutePlayer = new Brute(userName, 18, 1, 5, 10, 1, 1, 1, new BruteDeck(), p1modDeck);
+        Spellweaver spellPlayer = new Spellweaver(userName, 12, 1, 5, 10, 1, 1, 1, new SpellweaverDeck(), p1modDeck);
+        Tinkerer tinkPlayer = new Tinkerer(userName, 13, 1, 5, 10, 1, 1, 1, new TinkererDeck(), p1modDeck);
+        Cragheart cragPlayer = new Cragheart(userName, 16, 1, 5, 10, 1, 1, 1, new CragheartDeck(), p1modDeck);
+        Mindthief mindPlayer = new Mindthief(userName, 14, 1, 5, 10, 1, 1, 1, new MindthiefDeck(), p1modDeck);
+        Scoundrel scoundrelPlayer = new Scoundrel(userName, 13, 1, 5, 10, 1, 1, 1, new ScoundrelDeck(), p1modDeck);
+        Undead undead1 = new Undead("UNDEAD1", 8, 2, 2, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
+        Undead undead2 = new Undead("UNDEAD2", 8, 3, 3, 10, 1, 1, 1, new UndeadDeck(), monsterDeck);
+
 
         List<List<String>> board = new ArrayList<List<String>>();
         Board.createBoard(board);
@@ -50,36 +64,528 @@ public class Game {
                 .replace("[", "")  //remove the right bracket
                 .replace("]", "")  //remove the left bracket
                 .trim());
-        System.out.println("");
-        System.out.println("Menu Options:");
-        System.out.println("Enter 'M' to move your player.");
-        System.out.println("Enter 'Q' to quit.");
+        if (classChoice.equals("1")) {
+            System.out.println(brutePlayer.toString());
+        } else if (classChoice.equals("2")) {
+            System.out.println(spellPlayer.toString());
 
-        String userAnswer = scan.nextLine();
-        userAnswer = userAnswer.toUpperCase();
+        } else if (classChoice.equals("3")) {
+            System.out.println(tinkPlayer.toString());
+
+        } else if (classChoice.equals("4")) {
+            System.out.println(cragPlayer.toString());
+
+        } else if (classChoice.equals("5")) {
+            System.out.println(mindPlayer.toString());
+
+        } else if (classChoice.equals("6")) {
+            System.out.println(scoundrelPlayer.toString());
+
+        }
+
+        int roundCounter = 1;
+        AbilityCard undeadStats = undeadDeck.enemyDraw();
+        int undeadAttack = undeadStats.getAttack();
+        int undeadMove = undeadStats.getMove();
+        int undeadRange = undeadStats.getRange();
+        undead1.setAttack(undeadAttack);
+        undead1.setMove(undeadMove);
+        undead1.setRange(undeadRange);
+        undead2.setAttack(undeadAttack);
+        undead2.setMove(undeadMove);
+        undead2.setRange(undeadRange);
+        System.out.println(undead1.toString());
+        System.out.println(undead2.toString());
+        System.out.println(String.format("Round: %d, begin.", roundCounter));
+
+        Boolean hasAttacked = false;
+        Boolean hasMoved = false;
+
+        String userAnswer = "0";
         while (!(userAnswer.equals("Q"))) {
-            if (userAnswer.equals("M")) {
-                System.out.println("Enter location to move to: (Example: 1,4 would move you to position X1 Y4)");
-                userAnswer = scan.nextLine();
-                userAnswer = userAnswer.toUpperCase();
-                String[] mapCord = userAnswer.split("[,]", 0);
-                Board.updateLocations(board, mapCord);
-                System.out.println("");
-                System.out.println("User has been moved to: " + userAnswer);
-                System.out.println(board.toString().replace(",", "")  //remove the commas
-                        .replace("[", "")  //remove the right bracket
-                        .replace("]", "")  //remove the left bracket
-                        .trim());
-            }
+
             System.out.println("Menu Options:");
+            System.out.println("Enter 'A' to attack enemy.");
             System.out.println("Enter 'M' to move your player.");
+            System.out.println("Enter 'C' to choose card");
             System.out.println("Enter 'Q' to quit.");
             userAnswer = scan.nextLine();
             userAnswer = userAnswer.toUpperCase();
+            switch (userAnswer) {
+                case ("A"):
+                    String Zero = "0";
+                    if (Zero.equals(String.valueOf(brutePlayer.getAttack()))) {
+                        System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
+                        break;
+                    } else if (Zero.equals(String.valueOf(spellPlayer.getAttack()))) {
+                        System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
+                        break;
+                    } else if (Zero.equals(String.valueOf(tinkPlayer.getAttack()))) {
+                        System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
+                        break;
+                    } else if (Zero.equals(String.valueOf(cragPlayer.getAttack()))) {
+                        System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
+                        break;
+
+                    } else if (Zero.equals(String.valueOf(mindPlayer.getAttack()))) {
+                        System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
+                        break;
+
+                    } else if (Zero.equals(String.valueOf(scoundrelPlayer.getAttack()))) {
+                        System.out.println("\nYour attack is 0, choose a new card to get new movement value.");
+                        break;
+                    }
+
+                    System.out.println(board.toString().replace(",", "")  //remove the commas
+                            .replace("[", "")  //remove the right bracket
+                            .replace("]", "")  //remove the left bracket
+                            .trim());
+                    if (classChoice.equals("1")) {
+                        System.out.println(brutePlayer.toString());
+                    } else if (classChoice.equals("2")) {
+                        System.out.println(spellPlayer.toString());
+
+                    } else if (classChoice.equals("3")) {
+                        System.out.println(tinkPlayer.toString());
+
+                    } else if (classChoice.equals("4")) {
+                        System.out.println(cragPlayer.toString());
+
+                    } else if (classChoice.equals("5")) {
+                        System.out.println(mindPlayer.toString());
+
+                    } else if (classChoice.equals("6")) {
+                        System.out.println(scoundrelPlayer.toString());
+
+                    }
+                    System.out.println(undead1.toString());
+                    System.out.println(undead2.toString());
+                    System.out.println("Enter location of enemy being attacked: ");
+                    userAnswer = scan.nextLine();
+                    userAnswer = userAnswer.toUpperCase();
+                    String[] enemyCord = userAnswer.split("[,]", 0);
+
+                    if (String.valueOf(undead1.getXPos()).equals(enemyCord[0]) && String.valueOf(undead1.getYPos()).equals(enemyCord[1])) {
+                        int attackVal = 0;
+                        int modifiedAttack = 0;
+                        if (classChoice.equals("1")) {
+                            attackVal = brutePlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                            brutePlayer.setAttack(0);
+                        } else if (classChoice.equals("2")) {
+                            attackVal = spellPlayer.getAttack();
+                            spellPlayer.setAttack(0);
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                        } else if (classChoice.equals("3")) {
+                            attackVal = tinkPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                            tinkPlayer.setAttack(0);
+                        } else if (classChoice.equals("4")) {
+                            attackVal = cragPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                            cragPlayer.setAttack(0);
+                        } else if (classChoice.equals("5")) {
+                            attackVal = mindPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                            mindPlayer.setAttack(0);
+                        } else if (classChoice.equals("6")) {
+                            attackVal = scoundrelPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                            scoundrelPlayer.setAttack(0);
+                        }
+                        System.out.println(p1modDeck.damageText(modifiedAttack));
+                        int currentHP = undead1.getHP();
+                        undead1.setHP(currentHP - modifiedAttack);
+                        if (undead1.getHP() <= 0) {
+                            Board.removeEnemy(board, undead1.getXPos(), undead1.getYPos());
+                        }
+
+                    } else if (String.valueOf(undead2.getXPos()).equals(enemyCord[0]) && String.valueOf(undead2.getYPos()).equals(enemyCord[1])) {
+                        int attackVal = 0;
+                        int modifiedAttack = 0;
+                        if (classChoice.equals("1")) {
+                            attackVal = brutePlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                            brutePlayer.setAttack(0);
+                        } else if (classChoice.equals("2")) {
+                            attackVal = spellPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                            spellPlayer.setAttack(0);
+
+                        } else if (classChoice.equals("3")) {
+                            attackVal = tinkPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                            tinkPlayer.setAttack(0);
+
+                        } else if (classChoice.equals("4")) {
+                            attackVal = cragPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                            cragPlayer.setAttack(0);
+
+                        } else if (classChoice.equals("5")) {
+                            attackVal = mindPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                            mindPlayer.setAttack(0);
+
+                        } else if (classChoice.equals("6")) {
+                            attackVal = scoundrelPlayer.getAttack();
+                            modifiedAttack = p1modDeck.drawCard(attackVal);
+                            scoundrelPlayer.setAttack(0);
+
+                        }
+                        int currentHP = undead2.getHP();
+                        System.out.println(p1modDeck.damageText(modifiedAttack));
+                        undead2.setHP(currentHP - modifiedAttack);
+                        if (undead2.getHP() <= 0) {
+                            Board.removeEnemy(board, undead2.getXPos(), undead2.getYPos());
+                        }
+                    } else {
+                        System.out.println("No enemies at the location you entered.");
+                    }
+                    hasAttacked = true;
+
+                    break;
+
+                case ("M"):
+                    Zero = "0";
+
+                    if (Zero.equals(String.valueOf(brutePlayer.getMove()))) {
+                        System.out.println("\nYour movement is 0, choose a new card to get new movement value.");
+                        break;
+                    } else if (Zero.equals(String.valueOf(spellPlayer.getMove()))) {
+                        System.out.println("\nYour movement is 0, choose a new card to get new movement value.");
+                        break;
+                    } else if (Zero.equals(String.valueOf(tinkPlayer.getMove()))) {
+                        System.out.println("\nYour movement is 0, choose a new card to get new movement value.");
+                        break;
+                    } else if (Zero.equals(String.valueOf(cragPlayer.getMove()))) {
+                        System.out.println("\nYour movement is 0, choose a new card to get new movement value.");
+                        break;
+
+                    } else if (Zero.equals(String.valueOf(mindPlayer.getMove()))) {
+                        System.out.println("\nYour movement is 0, choose a new card to get new movement value.");
+                        break;
+
+                    } else if (Zero.equals(String.valueOf(scoundrelPlayer.getMove()))) {
+                        System.out.println("\nYour movement is 0, choose a new card to get new movement value.");
+                        break;
+                    }
+
+                    System.out.println(board.toString().replace(",", "")  //remove the commas
+                            .replace("[", "")  //remove the right bracket
+                            .replace("]", "")  //remove the left bracket
+                            .trim());
+                    if (classChoice.equals("1")) {
+                        System.out.println(brutePlayer.toString());
+                    } else if (classChoice.equals("2")) {
+                        System.out.println(spellPlayer.toString());
+
+                    } else if (classChoice.equals("3")) {
+                        System.out.println(tinkPlayer.toString());
+
+                    } else if (classChoice.equals("4")) {
+                        System.out.println(cragPlayer.toString());
+
+                    } else if (classChoice.equals("5")) {
+                        System.out.println(mindPlayer.toString());
+
+                    } else if (classChoice.equals("6")) {
+                        System.out.println(scoundrelPlayer.toString());
+
+                    }
+                    System.out.println(undead1.toString());
+                    System.out.println(undead2.toString());
+
+                    System.out.println("Enter location to move to: (Example: 1,4 would move you to position X1 Y4)");
+                    userAnswer = scan.nextLine();
+                    userAnswer = userAnswer.toUpperCase();
+                    String[] mapCord = userAnswer.split("[,]", 0);
+
+                    int currentX = 100;
+                    int currentY = 100;
+                    int toX = Integer.parseInt(mapCord[0]);
+                    int toY = Integer.parseInt(mapCord[1]);
+                    int moveAbility = 0;
+                    int absDiff = Math.abs(currentX - toX);
+                    int absDiff2 = Math.abs(currentY - toY);
+                    if (classChoice.equals("1")) {
+                        currentX = brutePlayer.getXPos();
+                        currentY = brutePlayer.getYPos();
+                        moveAbility = brutePlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+                    } else if (classChoice.equals("2")) {
+                        currentX = spellPlayer.getXPos();
+                        currentY = spellPlayer.getYPos();
+                        moveAbility = spellPlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+
+                    } else if (classChoice.equals("3")) {
+                        currentX = tinkPlayer.getXPos();
+                        currentY = tinkPlayer.getYPos();
+                        moveAbility = tinkPlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+
+                    } else if (classChoice.equals("4")) {
+                        currentX = cragPlayer.getXPos();
+                        currentY = cragPlayer.getYPos();
+                        moveAbility = cragPlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+
+                    } else if (classChoice.equals("5")) {
+                        currentX = mindPlayer.getXPos();
+                        currentY = mindPlayer.getYPos();
+                        moveAbility = mindPlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+
+                    } else if (classChoice.equals("6")) {
+                        currentX = scoundrelPlayer.getXPos();
+                        currentY = scoundrelPlayer.getYPos();
+                        moveAbility = scoundrelPlayer.getMove();
+                        absDiff = Math.abs(currentX - toX);
+                        absDiff2 = Math.abs(currentY - toY);
+
+                    }
+
+                    while (absDiff > moveAbility || (absDiff2 > moveAbility)) {
+                        System.out.println("Cannot move there, your move ability is not high enough");
+                        System.out.println("Enter location to move to: ");
+                        userAnswer = scan.nextLine();
+                        userAnswer = userAnswer.toUpperCase();
+                        mapCord = userAnswer.split("[,]", 0);
+                        toX = Integer.parseInt(mapCord[0]);
+                        toY = Integer.parseInt(mapCord[1]);
+                        if (classChoice.equals("1")) {
+                            currentX = brutePlayer.getXPos();
+                            currentY = brutePlayer.getYPos();
+                            moveAbility = brutePlayer.getMove();
+                            absDiff = Math.abs(currentX - toX);
+                            absDiff2 = Math.abs(currentY - toY);
+                        } else if (classChoice.equals("2")) {
+                            currentX = spellPlayer.getXPos();
+                            currentY = spellPlayer.getYPos();
+                            moveAbility = spellPlayer.getMove();
+                            absDiff = Math.abs(currentX - toX);
+                            absDiff2 = Math.abs(currentY - toY);
+
+                        } else if (classChoice.equals("3")) {
+                            currentX = tinkPlayer.getXPos();
+                            currentY = tinkPlayer.getYPos();
+                            moveAbility = tinkPlayer.getMove();
+                            absDiff = Math.abs(currentX - toX);
+                            absDiff2 = Math.abs(currentY - toY);
+
+                        } else if (classChoice.equals("4")) {
+                            currentX = cragPlayer.getXPos();
+                            currentY = cragPlayer.getYPos();
+                            moveAbility = cragPlayer.getMove();
+                            absDiff = Math.abs(currentX - toX);
+                            absDiff2 = Math.abs(currentY - toY);
+
+                        } else if (classChoice.equals("5")) {
+                            currentX = mindPlayer.getXPos();
+                            currentY = mindPlayer.getYPos();
+                            moveAbility = mindPlayer.getMove();
+                            absDiff = Math.abs(currentX - toX);
+                            absDiff2 = Math.abs(currentY - toY);
+
+                        } else if (classChoice.equals("6")) {
+                            currentX = scoundrelPlayer.getXPos();
+                            currentY = scoundrelPlayer.getYPos();
+                            moveAbility = scoundrelPlayer.getMove();
+                            absDiff = Math.abs(currentX - toX);
+                            absDiff2 = Math.abs(currentY - toY);
+
+                        }
+
+                    }
+
+                    if (classChoice.equals("1")) {
+                        brutePlayer.setXPos(toX);
+                        brutePlayer.setYPos(toY);
+                    } else if (classChoice.equals("2")) {
+                        spellPlayer.setXPos(toX);
+                        spellPlayer.setYPos(toY);
+                    } else if (classChoice.equals("3")) {
+                        tinkPlayer.setXPos(toX);
+                        tinkPlayer.setYPos(toY);
+                    } else if (classChoice.equals("4")) {
+                        cragPlayer.setXPos(toX);
+                        cragPlayer.setYPos(toY);
+                    } else if (classChoice.equals("5")) {
+                        mindPlayer.setXPos(toX);
+                        mindPlayer.setYPos(toY);
+                    } else if (classChoice.equals("6")) {
+                        scoundrelPlayer.setXPos(toX);
+                        scoundrelPlayer.setYPos(toY);
+                    }
+
+                    Board.updateLocations(board, mapCord);
+
+                    System.out.println("");
+                    System.out.println("User has been moved to: " + userAnswer);
+                    hasMoved = true;
+                    System.out.println(board.toString().replace(",", "")  //remove the commas
+                            .replace("[", "")  //remove the right bracket
+                            .replace("]", "")  //remove the left bracket
+                            .trim());
+
+                    if (classChoice.equals("1")) {
+                        brutePlayer.setMove(0);
+
+                    } else if (classChoice.equals("2")) {
+                        spellPlayer.setMove(0);
+
+
+                    } else if (classChoice.equals("3")) {
+                        tinkPlayer.setMove(0);
+
+
+                    } else if (classChoice.equals("4")) {
+                        cragPlayer.setMove(0);
+
+                    } else if (classChoice.equals("5")) {
+                        mindPlayer.setMove(0);
+
+                    } else if (classChoice.equals("6")) {
+                        scoundrelPlayer.setMove(0);
+                    }
+
+                    if (classChoice.equals("1")) {
+                        System.out.println(brutePlayer.toString());
+                    } else if (classChoice.equals("2")) {
+                        System.out.println(spellPlayer.toString());
+
+                    } else if (classChoice.equals("3")) {
+                        System.out.println(tinkPlayer.toString());
+
+                    } else if (classChoice.equals("4")) {
+                        System.out.println(cragPlayer.toString());
+
+                    } else if (classChoice.equals("5")) {
+                        System.out.println(mindPlayer.toString());
+
+                    } else if (classChoice.equals("6")) {
+                        System.out.println(scoundrelPlayer.toString());
+
+                    }
+
+                    break;
+
+                case ("C"):
+                    if (classChoice.equals("1")) {
+                        brutePlayer.displayDeck();
+                    } else if (classChoice.equals("2")) {
+                        spellPlayer.displayDeck();
+                    } else if (classChoice.equals("3")) {
+                        tinkPlayer.displayDeck();
+                    } else if (classChoice.equals("4")) {
+                        cragPlayer.displayDeck();
+                    } else if (classChoice.equals("5")) {
+                        mindPlayer.displayDeck();
+                    } else if (classChoice.equals("6")) {
+                        scoundrelPlayer.displayDeck();
+                    }
+                    System.out.println("Which card would you like? (Ex- Enter '1' to choose card 1)");
+                    String cardChoice = scan.nextLine();
+                    while ((!(cardChoice.equals("1"))) && (!(cardChoice.equals("2"))) && (!(cardChoice.equals("3"))) && (!(cardChoice.equals("4"))) && (!(cardChoice.equals("5"))) && (!(cardChoice.equals("6"))) && (!(cardChoice.equals("7"))) && (!(cardChoice.equals("8")))) {
+                        System.out.println("You must enter a number from 1 to 8");
+                        cardChoice = scan.nextLine();
+                    }
+
+                    int attack = 0;
+                    int move = 0;
+                    int range = 0;
+                    if (classChoice.equals("1")) {
+                        attack = brutePlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                        move = brutePlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                        range = brutePlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getRange();
+                        brutePlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                        brutePlayer.setAttack(attack);
+                        brutePlayer.setMove(move);
+                        brutePlayer.setRange(range);
+                    } else if (classChoice.equals("2")) {
+                        attack = spellPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                        move = spellPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                        range = brutePlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getRange();
+                        spellPlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                        spellPlayer.setAttack(attack);
+                        spellPlayer.setMove(move);
+                        spellPlayer.setRange(range);
+
+                    } else if (classChoice.equals("3")) {
+                        attack = tinkPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                        move = tinkPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                        range = brutePlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getRange();
+                        tinkPlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                        tinkPlayer.setAttack(attack);
+                        tinkPlayer.setMove(move);
+                        tinkPlayer.setRange(range);
+
+                    } else if (classChoice.equals("4")) {
+                        attack = cragPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                        move = cragPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                        range = brutePlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getRange();
+                        cragPlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                        cragPlayer.setAttack(attack);
+                        cragPlayer.setMove(move);
+                        cragPlayer.setRange(range);
+
+                    } else if (classChoice.equals("5")) {
+                        attack = mindPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                        move = mindPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                        range = brutePlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getRange();
+                        mindPlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                        mindPlayer.setAttack(attack);
+                        mindPlayer.setMove(move);
+                        mindPlayer.setRange(range);
+
+                    } else if (classChoice.equals("6")) {
+                        attack = scoundrelPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getAttack();
+                        move = scoundrelPlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getMove();
+                        range = brutePlayer.getDeck().getCard(Integer.parseInt(cardChoice) - 1).getRange();
+                        scoundrelPlayer.getDeck().removeCard((Integer.parseInt(cardChoice) - 1));
+                        scoundrelPlayer.setAttack(attack);
+                        scoundrelPlayer.setMove(move);
+                        scoundrelPlayer.setRange(range);
+                    }
+                    System.out.println("Your attack will be set to: " + attack + ", Your range will be set to: " + range + ", and your move will be set to: " + move);
+                    break;
+
+                }
+                if (hasAttacked == true && hasMoved == true)
+                {
+                    hasAttacked = false;
+                    hasMoved = false;
+                    // put enemy doing things here
+
+                    //draw new card for undead
+                    undeadStats = undeadDeck.enemyDraw();
+                    undeadAttack = undeadStats.getAttack();
+                    undeadMove = undeadStats.getMove();
+                    undeadRange = undeadStats.getRange();
+                    undead1.setAttack(undeadAttack);
+                    undead1.setMove(undeadMove);
+                    undead1.setRange(undeadRange);
+                    undead2.setAttack(undeadAttack);
+                    undead2.setMove(undeadMove);
+                    undead2.setRange(undeadRange);
+                    roundCounter++;
+                    System.out.println(String.format("Round: %d, begin.", roundCounter));
+
+                    //print out next round stats for undead
+                    System.out.println(undead1.toString());
+                    System.out.println(undead2.toString());
+                }
         }
+
     }
 
-    private static void chooseClass(Player player) {
+    private static String chooseClass() {
         String output = "";
         output += "Below are the starter classes you can choose from for your player.\n";
         output += "1 - INOX BRUTE\n";
@@ -94,7 +600,7 @@ public class Game {
         String classChoice = scan.nextLine();
         classChoice = classChoice.toUpperCase();
         while ((!(classChoice.equals("1"))) && (!(classChoice.equals("2"))) && (!(classChoice.equals("3"))) && (!(classChoice.equals("4"))) && (!(classChoice.equals("5"))) && (!(classChoice.equals("6")))) {
-            if (classChoice.equals("E")){
+            if (classChoice.equals("E")) {
                 output = "";
                 String temp = "";
                 output += "--------------------------------------------------------------------------------------------------------------------------------------------------\n";
@@ -118,7 +624,7 @@ public class Game {
                 output += "--------------------------------------------------------------------------------------------------------------------------------------------------\n";
                 System.out.println(output);
             }
-            if (classChoice.equals("M")){
+            if (classChoice.equals("M")) {
                 output = "";
                 output += "1 - INOX BRUTE\n";
                 output += "2 - ORCHID SPELLWEAVER\n";
@@ -132,22 +638,24 @@ public class Game {
             classChoice = scan.nextLine();
             classChoice = classChoice.toUpperCase();
         }
-        if (classChoice.equals("1")){
-            player.setPClass("INOX BRUTE");
+        String strClass = "";
+        if (classChoice.equals("1")) {
+            strClass = ("INOX BRUTE");
         } else if (classChoice.equals("2")) {
-            player.setPClass("ORCHID SPELLWEAVER");
-        }else if (classChoice.equals("3")) {
-            player.setPClass("QUATRYL TINKERER");
-        }else if (classChoice.equals("4")) {
-            player.setPClass("SAVVAS CRAGHEART");
-        }else if (classChoice.equals("5")) {
-            player.setPClass("VERMLING MINDTHIE");
-        }else if (classChoice.equals("6")) {
-            player.setPClass("HUMAN SCOUNDREL");
+            strClass = ("ORCHID SPELLWEAVER");
+        } else if (classChoice.equals("3")) {
+            strClass = ("QUATRYL TINKERER");
+        } else if (classChoice.equals("4")) {
+            strClass = ("SAVVAS CRAGHEART");
+        } else if (classChoice.equals("5")) {
+            strClass = ("VERMLING MINDTHIE");
+        } else if (classChoice.equals("6")) {
+            strClass = ("HUMAN SCOUNDREL");
         }
 
-        System.out.println(player.getName() + " has chosen class: " + player.getPClass());
 
+        System.out.println("Chosen class: " + strClass);
+        return classChoice;
     }
 
     public static void gameIntroduction() {
@@ -168,6 +676,7 @@ public class Game {
         System.out.println(output);
         System.out.println("Press Enter to continue story: ");
     }
+
     public static void quest1Introduction() {
         Scanner scan = new Scanner(System.in); // Create a Scanner object
         String enter = scan.nextLine();
@@ -196,11 +705,12 @@ public class Game {
     }
 
 
-        /**
-         * Start up game
-         * @param args command line args are not used
-         */
-        public static void main (String[]args){
-            playGloomhaven();
-        }
+    /**
+     * Start up game
+     *
+     * @param args command line args are not used
+     */
+    public static void main(String[] args) {
+        playGloomhaven();
+    }
 }

@@ -1,11 +1,12 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
-import java.util.Scanner;
+
 /**
  * Ability card
+ *
  * @author Anthony Schultz
  */
 
-public class AbilityCard {
+public class AbilityCardEx {
     private String name;
     private int intitiativeNumber;
     private int level;
@@ -14,7 +15,7 @@ public class AbilityCard {
     private String[] abilities;
 
 
-    public AbilityCard(String _name, int _intitiativeNumber, int _level, String _topAction, String _bottomAction, String[] _abilities) {
+    public AbilityCardEx(String _name, int _intitiativeNumber, int _level, String _topAction, String _bottomAction, String[] _abilities) {
         name = _name;
         intitiativeNumber = _intitiativeNumber;
         level = _level;
@@ -34,6 +35,7 @@ public class AbilityCard {
     public void setName(String newName) {
         this.name = newName;
     }
+
     public String getName() {
         return name;
     }
@@ -41,6 +43,7 @@ public class AbilityCard {
     public void setLevel(int newLevel) {
         this.level = newLevel;
     }
+
     public int getLevel() {
         return level;
     }
@@ -48,6 +51,7 @@ public class AbilityCard {
     public void setIntitiativeNumberl(int newInitiativeNumber) {
         this.level = newInitiativeNumber;
     }
+
     public int getIntitiativeNumber() {
         return intitiativeNumber;
     }
@@ -55,6 +59,7 @@ public class AbilityCard {
     public void setTopAction(String newTopAction) {
         this.name = newTopAction;
     }
+
     public String getTopAction() {
         return topAction;
     }
@@ -62,6 +67,7 @@ public class AbilityCard {
     public void setBottomAction(String newBottomAction) {
         this.name = newBottomAction;
     }
+
     public String getBottomAction() {
         return bottomAction;
     }
@@ -69,6 +75,7 @@ public class AbilityCard {
     public void setAbilities(String[] newAbilities) {
         this.abilities = newAbilities;
     }
+
     public String[] getAbilities() {
         return abilities;
     }

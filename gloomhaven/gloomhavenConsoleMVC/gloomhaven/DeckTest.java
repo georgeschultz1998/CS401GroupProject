@@ -1,8 +1,8 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- *
  * @author Bryan le
  */
 
@@ -31,6 +31,7 @@ class DeckTest {
         //expect 20-3=17
         assertEquals(result, 17);
     }
+
     @org.junit.jupiter.api.Test
     void removeCardDupeTest() {
         d1.removeCard(2);

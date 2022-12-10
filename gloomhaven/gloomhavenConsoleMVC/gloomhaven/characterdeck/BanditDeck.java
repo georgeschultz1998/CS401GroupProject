@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-public class SpellweaverDeck {
+public class BanditDeck {
     private int attack;
     private int move;
     private static int deckSize;
@@ -12,26 +12,24 @@ public class SpellweaverDeck {
     ArrayList<AbilityCard> deck = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> discard = new ArrayList<AbilityCard>();
     ArrayList<AbilityCard> removeList = new ArrayList<AbilityCard>();
+    AbilityCard current = new AbilityCard(0,0,0);
 
-    AbilityCard card0 = new AbilityCard(2, 1, 2);
-    AbilityCard card1 = new AbilityCard(2, 1, 2);
-    AbilityCard card2 = new AbilityCard(3, 2, 1);
-    AbilityCard card3 = new AbilityCard(3, 2, 1);
-    AbilityCard card4 = new AbilityCard(3, 2, 2);
-    AbilityCard card5 = new AbilityCard(5, 3, 2);
-    AbilityCard card6 = new AbilityCard(4, 3, 3);
-    AbilityCard card7 = new AbilityCard(6, 3, 2);
+    AbilityCard card0 = new AbilityCard(1, 1, 1);
+    AbilityCard card1 = new AbilityCard(1, 1, 1);
+    AbilityCard card2 = new AbilityCard(1, 2, 2);
+    AbilityCard card3 = new AbilityCard(2, 1, 0);
+    AbilityCard card4 = new AbilityCard(2, 2, 3);
+    AbilityCard card5 = new AbilityCard(3, 2, 0);
 
 
-    public SpellweaverDeck() {
+
+    public BanditDeck() {
         deck.add(card0);
         deck.add(card1);
         deck.add(card2);
         deck.add(card3);
         deck.add(card4);
         deck.add(card5);
-        deck.add(card6);
-        deck.add(card7);
 
     }
 
@@ -56,8 +54,7 @@ public class SpellweaverDeck {
         deck.add(card3);
         deck.add(card4);
         deck.add(card5);
-        deck.add(card6);
-        deck.add(card7);
+
 
         for (int i = 0; i < removeList.size(); i++) {
             AbilityCard value = (removeList.get(i));
@@ -71,11 +68,26 @@ public class SpellweaverDeck {
 
         return deck.size();
     }
-
     public void enemyDraw() {
         Random r = new Random();
         int i = r.nextInt(deck.size());
+        drawCard(i);
         removeCard(i);
+    }
+
+    public void drawCard(int position) {
+        current = deck.get(position);
+        attack = current.getAttack();
+        move = current.getMove();
+        deck.remove(position);
+    }
+
+    public int attackMod() {
+        return current.getAttack();
+    }
+
+    public int moveMod() {
+        return current.getMove();
     }
 
     /**
@@ -156,5 +168,4 @@ public class SpellweaverDeck {
     public AbilityCard getCard(int index) {
         return deck.get(index);
     }
-
 }

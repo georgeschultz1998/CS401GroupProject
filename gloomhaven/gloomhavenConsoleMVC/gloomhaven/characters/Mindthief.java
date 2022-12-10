@@ -1,10 +1,7 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters;
 
 import gloomhaven.gloomhavenConsoleMVC.gloomhaven.Deck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BanditDeck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.BruteDeck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.SpellweaverDeck;
-import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.TinkererDeck;
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.*;
 
 /**
  * Gloomhaven character
@@ -12,11 +9,10 @@ import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characterdeck.TinkererDeck;
  * @author Stefan Fuller
  */
 
-public class Tinkerer extends PlayableCharacter {
-    protected TinkererDeck deck;
+public class Mindthief extends PlayableCharacter {
+    protected MindthiefDeck deck;
     protected Deck modDeck;
-
-    public Tinkerer(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, TinkererDeck _deck, Deck _modDeck) {
+    public Mindthief(String _name, int _hp, int _xPos, int _yPos, int _gold, int _attack, int _range, int _move, MindthiefDeck _deck, Deck _modDeck) {
         super(_name, _hp, _xPos, _yPos, _gold, _attack, _range, _move);
         deck = _deck;
         modDeck = _modDeck;
@@ -41,7 +37,7 @@ public class Tinkerer extends PlayableCharacter {
         deck.display();
     }
 
-    public TinkererDeck getDeck() {
+    public MindthiefDeck getDeck() {
         return deck;
     }
 

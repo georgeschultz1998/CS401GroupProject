@@ -1,28 +1,33 @@
 package gloomhaven.gloomhavenConsoleMVC.gloomhaven;
+
+import gloomhaven.gloomhavenConsoleMVC.gloomhaven.characters.Undead;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.*;
+
 /**
  * Gloomhaven board
+ *
  * @author Anthony Schultz
  */
 
 public class Board {
     private static final Hexagon BLANK_HEX = new Hexagon(Symbol.HEXAGON);
-    List < List < String >> temp;
+    List<List<String>> temp;
     private final List<List<String>> board = createBoard(temp);
 
-    public static List < List < String >> createBoard(List<List<String>> board) {
+    public static List<List<String>> createBoard(List<List<String>> board) {
 
-        List < String > row1 = new ArrayList<>();
-        List < String > row2  = new ArrayList<>();
-        List < String > row3  = new ArrayList<>();
-        List < String > row4  = new ArrayList<>();
-        List < String > row5  = new ArrayList<>();
-        List < String > row6  = new ArrayList<>();
+        List<String> row1 = new ArrayList<>();
+        List<String> row2 = new ArrayList<>();
+        List<String> row3 = new ArrayList<>();
+        List<String> row4 = new ArrayList<>();
+        List<String> row5 = new ArrayList<>();
+        List<String> row6 = new ArrayList<>();
 
         String[] row1Array = {
-                "-------------------------\n"," " , "    X1" ,"  X2" ," X3" ," X4", " \n"
+                "-------------------------\n", " ", "    X1", "  X2", " X3", " X4", " \n"
         };
 
         String[] row2Array = {
@@ -64,6 +69,7 @@ public class Board {
 
     /**
      * Get String representation of entire board
+     *
      * @return the representation
      */
     @Override
@@ -91,21 +97,24 @@ public class Board {
         Integer yCord = Integer.parseInt(mapCord[1]);
         Scanner scan = new Scanner(System.in); // Create a Scanner object
         //System.out.println(map.get(yCord).get(xCord));
-        if (map.get(yCord).get(xCord).equals(BLANK_HEX + "")){
+        if (map.get(yCord).get(xCord).equals(BLANK_HEX + "")) {
 
             for (int i = 0; i < map.size(); i++) {
                 currentXCord = map.get(i).indexOf(new Hexagon(Symbol.USER) + "");
-                if (!(currentXCord.equals(-1))){
+                if (!(currentXCord.equals(-1))) {
                     map.get(i).set(currentXCord, BLANK_HEX + "");
                     i = map.size();
                 }
             }
             map.get(yCord).set(xCord, (new Hexagon(Symbol.USER) + ""));
-        }
-        else{
+        } else {
             System.out.println("Cannot move there, please choose an empty space.");
         }
-     }
+    }
+
+    public static void removeEnemy(List<List<String>> map, int x, int y) {
+        map.get(y).set(x, (new Hexagon(Symbol.HEXAGON) + ""));
+    }
 
 
 }
